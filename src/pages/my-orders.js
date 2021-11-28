@@ -28,9 +28,9 @@ export default () => {
       return
     }
     axios
-      .get(
-        `https://buy-btc.vercel.app/api/my-orders?accessKey=${accessKey}&secretKey=${secretKey}&order_by=asc`,
-      )
+      .get(`https://buy-btc.vercel.app/api/my-orders`, {
+        params: { accessKey, secretKey, orderBy: 'asc' },
+      })
       .then(result => {
         console.log('xxx', result.data)
         setData(
