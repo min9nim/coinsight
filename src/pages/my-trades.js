@@ -1,59 +1,58 @@
-import React, { useEffect, useState } from 'react'
-import { VictoryChart, VictoryScatter } from 'victory'
+import React, {useEffect, useState} from 'react'
+import {CartesianGrid, Scatter, ScatterChart, Tooltip, XAxis, YAxis} from 'recharts'
+import {parseSearchParams} from '@madup-inc/utils'
 import axios from 'axios'
-import { parseSearchParams } from '@madup-inc/utils'
 import moment from 'moment'
 
-// const ScatterPoint = ({ x, y, datum }) => {
-//     const [selected, setSelected] = React.useState(false);
-//     const [hovered, setHovered] = React.useState(false);
-//
-//     return (
-//         <circle
-//             cx={x}
-//             cy={y}
-//             r={datum.volume}
-//             stroke={hovered ? "purple" : "white"}
-//             strokeWidth={2}
-//             fill={selected ? "cyan" : "magenta"}
-//             onClick={() => setSelected(!selected)}
-//             onMouseEnter={() => setHovered(true)}
-//             onMouseLeave={() => setHovered(false)}
-//         />
-//     );
-// };
+const data = [
+    { x: '10/12', y: 200, z: 200 },
+    { x: '10/17', y: 100, z: 260 },
+    { x: '10/18', y: 300, z: 400 },
+    { x: '10/22', y: 250, z: 280 },
+];
 
 export default () => {
-  const [data, setData] = useState([])
-  const { accessKey, secretKey } = parseSearchParams(window.location.search)
+    const [data, setData] = useState([])
+    const { accessKey, secretKey } = parseSearchParams(window.location.search)
 
-  useEffect(async () => {
-    const result = await axios.get(
-      `https://buy-btc.vercel.app/api/my-orders?accessKey=${accessKey}&secretKey=${secretKey}`,
-    )
-    console.log('xxx', result.data)
+    useEffect(() => {
+        axios.get(
+            `https://buy-btc.vercel.app/api/my-orders?accessKey=${accessKey}&secretKey=${secretKey}&order_by=asc`,
+        ).then(result => {
+            console.log('xxx', result.data)
+            setData(
+                result.data
+                    // .slice(0, 50)
+                    .map(item => ({
+                        x: moment(item.created_at).format('MM/DD HH:mm'),
+                        y: Number(Math.floor(item.price/10000)),
+                        z: Number(item.volume * 1000000),
+                    })),
+            )
+        })
+    }, [])
 
-    setData(
-      result.data
-        .slice(0, 10)
-        .map(item => ({
-          x: moment(item.created_at).format('MM/DD, hh:mm'),
-          y: Number(item.price),
-          amount: Number(item.volume * 100000),
-        })),
-    )
-  }, [])
+    console.log('data', data)
 
-  console.log('data', data)
-  return (
-    <VictoryChart>
-      <VictoryScatter
-        style={{ data: { fill: '#c43a31' } }}
-        bubbleProperty="amount"
-        maxBubbleSize={25}
-        minBubbleSize={5}
-        data={data}
-      />
-    </VictoryChart>
-  )
+    if(data.length === 0){
+        return <div>Loading..</div>
+    }
+    return (
+        <ScatterChart
+            width={1000}
+            height={400}
+            margin={{
+                top: 20,
+                right: 20,
+                bottom: 20,
+                left: 20,
+            }}
+        >
+            <CartesianGrid />
+            <XAxis dataKey="x" name="date" />
+            <YAxis type="number" dataKey="y" name="price" unit="만원" />
+            <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+            <Scatter name="A school" data={data} fill="#8884d8" />
+        </ScatterChart>
+    );
 }

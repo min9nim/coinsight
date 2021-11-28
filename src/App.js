@@ -1,3 +1,4 @@
+import React from 'react'
 import MyTrades from './pages/my-trades'
 
 function App() {
