@@ -24,6 +24,9 @@ export default () => {
   const { accessKey, secretKey } = parseSearchParams(window.location.search)
 
   useEffect(() => {
+    if (!accessKey || !secretKey) {
+      return
+    }
     axios
       .get(
         `https://buy-btc.vercel.app/api/my-orders?accessKey=${accessKey}&secretKey=${secretKey}&order_by=asc`,
@@ -59,7 +62,12 @@ export default () => {
       >
         <CartesianGrid />
         <XAxis dataKey="x" name="date" />
-        <YAxis type="number" dataKey="y" name="price" tickFormatter={value => Math.floor(value / 10000) + '만원'}/>
+        <YAxis
+          type="number"
+          dataKey="y"
+          name="price"
+          tickFormatter={value => Math.floor(value / 10000) + '만원'}
+        />
         <Tooltip cursor={{ strokeDasharray: '3 3' }} />
         <Scatter name="A school" data={data} fill="#8884d8" />
       </ScatterChart>
