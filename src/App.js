@@ -3,9 +3,7 @@ import MyTrades from './pages/my-trades'
 
 function App() {
   return (
-    <div>
       <MyTrades/>
-    </div>
   );
 }
 
