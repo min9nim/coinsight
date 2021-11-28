@@ -61,7 +61,7 @@ export default () => {
         }}
       >
         <CartesianGrid />
-        <XAxis dataKey="x" name="date" />
+        <XAxis dataKey="x" name="date" angle={10}/>
         <YAxis
           type="number"
           dataKey="y"
