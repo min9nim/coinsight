@@ -1,5 +1,5 @@
 import React from 'react'
-import MyTrades from './pages/my-trades'
+import MyTrades from './pages/my-orders'
 
 function App() {
   return (
