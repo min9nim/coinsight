@@ -6,9 +6,10 @@ import {
   Tooltip,
   XAxis,
   ResponsiveContainer,
+  Label,
   YAxis,
 } from 'recharts'
-import { parseSearchParams } from '@madup-inc/utils'
+import {parseSearchParams, toComma} from '@madup-inc/utils'
 import axios from 'axios'
 import moment from 'moment'
 
@@ -61,14 +62,17 @@ export default () => {
         }}
       >
         <CartesianGrid />
-        <XAxis dataKey="x" name="date" angle={10}/>
+        <XAxis dataKey="x" name="date" angle={10} />
         <YAxis
           type="number"
           dataKey="y"
           name="price"
           tickFormatter={value => Math.floor(value / 10000) + '만원'}
         />
-        <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+        <Tooltip
+          cursor={{ strokeDasharray: '3 3' }}
+          formatter={(value, type) => type === 'price' ? toComma(value) : value}
+        />
         <Scatter name="A school" data={data} fill="#8884d8" />
       </ScatterChart>
     </ResponsiveContainer>
