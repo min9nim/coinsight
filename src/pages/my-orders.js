@@ -58,6 +58,7 @@ export default () => {
           width={100}
           dataKey="y"
           name="price"
+          domain={['auto', 'auto']}
           tickFormatter={value => toComma(value)}
         />
         <Tooltip
