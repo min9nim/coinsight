@@ -6,19 +6,11 @@ import {
   Tooltip,
   XAxis,
   ResponsiveContainer,
-  Label,
   YAxis,
 } from 'recharts'
 import {parseSearchParams, toComma} from '@madup-inc/utils'
 import axios from 'axios'
 import moment from 'moment'
-
-const data = [
-  { x: '10/12', y: 200, z: 200 },
-  { x: '10/17', y: 100, z: 260 },
-  { x: '10/18', y: 300, z: 400 },
-  { x: '10/22', y: 250, z: 280 },
-]
 
 export default () => {
   const [data, setData] = useState([])
@@ -33,13 +25,11 @@ export default () => {
         params: { accessKey, secretKey, orderBy: 'asc' },
       })
       .then(result => {
-        console.log('xxx', result.data)
         setData(
           result.data
-            // .slice(0, 50)
             .map(item => ({
               x: moment(item.created_at).format('MM/DD HH:mm'),
-              y: Number(Math.floor(item.price)),
+              y: Number(item.price),
               z: Number(item.volume * 1000000),
             })),
         )
@@ -65,9 +55,10 @@ export default () => {
         <XAxis dataKey="x" name="date" angle={10} />
         <YAxis
           type="number"
+          width={100}
           dataKey="y"
           name="price"
-          tickFormatter={value => Math.floor(value / 10000) + '만원'}
+          tickFormatter={value => toComma(value)}
         />
         <Tooltip
           cursor={{ strokeDasharray: '3 3' }}
