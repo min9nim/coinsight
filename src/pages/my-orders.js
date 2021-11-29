@@ -57,7 +57,7 @@ export default () => {
         <XAxis dataKey="x" name="date" angle={10} />
         <YAxis
           type="number"
-          width={100}
+          width={80}
           dataKey="y"
           name="price"
           domain={['auto', 'auto']}
