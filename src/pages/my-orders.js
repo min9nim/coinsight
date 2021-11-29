@@ -9,28 +9,33 @@ import {
   YAxis,
   ZAxis,
 } from 'recharts'
-import { parseSearchParams, toComma } from '@madup-inc/utils'
+import { parseSearchParams, toComma, oneOf } from '@madup-inc/utils'
 import axios from 'axios'
 import moment from 'moment'
+import {useLoading} from 'react-hook-loading'
+
 
 moment.locale('en')
 
 export default () => {
   const [data, setData] = useState([])
+  const [loading, setLoading] = useLoading()
 
-  useEffect(() => {
-    const search = parseSearchParams(window.location.search)
+  const [accessKey, setAccessKey] = useState(
+    () =>
+      parseSearchParams(window.location.search).accessKey ||
+      window.localStorage.getItem('accessKey') ||
+      '',
+  )
+  const [secretKey, setSecretKey] = useState(
+    () =>
+      parseSearchParams(window.location.search).secretKey ||
+      window.localStorage.getItem('secretKey') ||
+      '',
+  )
 
-    let accessKey = search.accessKey || window.localStorage.getItem('accessKey')
-    let secretKey = search.secretKey || window.localStorage.getItem('secretKey')
-
-    if (!accessKey || !secretKey) {
-      accessKey = window.prompt('Input accessKey')
-      window.localStorage.setItem('accessKey', accessKey)
-      secretKey = window.prompt('Input secretKey')
-      window.localStorage.setItem('secretKey', secretKey)
-    }
-
+  const loadData = () => {
+    setLoading(true)
     axios
       .get(`https://buy-btc.vercel.app/api/my-orders`, {
         params: { accessKey, secretKey, orderBy: 'asc' },
@@ -48,57 +53,108 @@ export default () => {
         alert(err.message)
         localStorage.clear()
       })
-  }, [])
+      .finally(() => {
+        setLoading(false)
+      })
+  }
+
+
+  useEffect(() => {
+    if (accessKey.length !== 40 || secretKey.length !== 40) {
+      return
+    }
+
+    loadData()
+  }, [accessKey, secretKey])
 
   console.log('data', data)
 
-  if (data.length === 0) {
-    return <div>Loading..</div>
+  if(loading){
+    return null
   }
-  return (
-    <ResponsiveContainer width="100%" height="100%">
-      <ScatterChart
-        margin={{
-          top: 20,
-          right: 20,
-          bottom: 20,
-          left: 20,
-        }}
-      >
-        <CartesianGrid />
-        <XAxis
-          type="number"
-          dataKey="x"
-          name="date"
-          angle={10}
-          tickFormatter={value => moment(value).format('YY/MM/DD')}
-          domain={['auto', 'auto']}
-        />
-        <YAxis
-          type="number"
-          width={80}
-          dataKey="y"
-          name="price"
-          domain={['auto', 'auto']}
-          tickFormatter={value => toComma(value)}
-        />
-        <ZAxis
-          type="number"
-          dataKey="z"
-          domain={['auto', 'auto']}
-          range={[50, 500]}
-          name="volume"
-        />
-        <Tooltip
-          cursor={{ strokeDasharray: '3 3' }}
-          formatter={(value, type) =>
-            type === 'date'
-              ? moment(value).format('MM/DD HH:mm')
-              : toComma(value)
-          }
-        />
-        <Scatter name="A school" data={data} fill="#8884d8" />
-      </ScatterChart>
-    </ResponsiveContainer>
+
+  return oneOf(
+    [
+      [
+        data.length > 0,
+        () => (
+          <ResponsiveContainer width="100%" height="100%">
+            <ScatterChart
+              margin={{
+                top: 20,
+                right: 20,
+                bottom: 20,
+                left: 20,
+              }}
+            >
+              <CartesianGrid />
+              <XAxis
+                type="number"
+                dataKey="x"
+                name="date"
+                angle={10}
+                tickFormatter={value => moment(value).format('YY/MM/DD')}
+                domain={['auto', 'auto']}
+              />
+              <YAxis
+                type="number"
+                width={80}
+                dataKey="y"
+                name="price"
+                domain={['auto', 'auto']}
+                tickFormatter={value => toComma(value)}
+              />
+              <ZAxis
+                type="number"
+                dataKey="z"
+                domain={['auto', 'auto']}
+                range={[50, 500]}
+                name="volume"
+              />
+              <Tooltip
+                cursor={{ strokeDasharray: '3 3' }}
+                formatter={(value, type) =>
+                  type === 'date'
+                    ? moment(value).format('MM/DD HH:mm')
+                    : toComma(value)
+                }
+              />
+              <Scatter name="A school" data={data} fill="#8884d8" />
+            </ScatterChart>
+          </ResponsiveContainer>
+        ),
+      ],
+      [
+        accessKey.length !== 40 || secretKey.length !== 40,
+        () => (
+          <>
+            <div>
+              <span>accessKey: </span>
+              <input
+                autoFocus
+                maxLength={40}
+                value={accessKey}
+                onChange={e => {
+                  setAccessKey(e.target.value)
+                  window.localStorage.setItem('accessKey', e.target.value)
+                }}
+              />
+            </div>
+            <div>
+              <span>secretKey:</span>
+              <input
+                maxLength={40}
+                value={secretKey}
+                onChange={e => {
+                  setSecretKey(e.target.value)
+                  window.localStorage.setItem('secretKey', e.target.value)
+                }}
+              />
+            </div>
+          </>
+        ),
+      ],
+    ],
+    () => <div>There is no data</div>
   )
 }
