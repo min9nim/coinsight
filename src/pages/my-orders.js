@@ -43,9 +43,11 @@ export default () => {
             z: item.volume,
           })),
         )
-      }).catch(err => {
+      })
+      .catch(err => {
         alert(err.message)
-    })
+        localStorage.clear()
+      })
   }, [])
 
   console.log('data', data)
