@@ -17,12 +17,20 @@ moment.locale('en')
 
 export default () => {
   const [data, setData] = useState([])
-  const { accessKey, secretKey } = parseSearchParams(window.location.search)
 
   useEffect(() => {
+    const search = parseSearchParams(window.location.search)
+
+    let accessKey = search.accessKey || window.localStorage.getItem('accessKey')
+    let secretKey = search.secretKey || window.localStorage.getItem('secretKey')
+
     if (!accessKey || !secretKey) {
-      return
+      accessKey = window.prompt('Input accessKey')
+      window.localStorage.setItem('accessKey', accessKey)
+      secretKey = window.prompt('Input secretKey')
+      window.localStorage.setItem('secretKey', secretKey)
     }
+
     axios
       .get(`https://buy-btc.vercel.app/api/my-orders`, {
         params: { accessKey, secretKey, orderBy: 'asc' },
@@ -35,7 +43,9 @@ export default () => {
             z: item.volume,
           })),
         )
-      })
+      }).catch(err => {
+        alert(err.message)
+    })
   }, [])
 
   console.log('data', data)
