@@ -7,6 +7,7 @@ import {
   XAxis,
   ResponsiveContainer,
   YAxis,
+  ZAxis,
 } from 'recharts'
 import { parseSearchParams, toComma } from '@madup-inc/utils'
 import axios from 'axios'
@@ -31,7 +32,7 @@ export default () => {
           result.data.map(item => ({
             x: moment(item.created_at).valueOf(),
             y: item.price,
-            z: item.volume * 1000000,
+            z: item.volume,
           })),
         )
       })
@@ -58,7 +59,7 @@ export default () => {
           dataKey="x"
           name="date"
           angle={10}
-          tickFormatter={(value, sub) => moment(value).format('MM/DD')}
+          tickFormatter={value => moment(value).format('YY/MM/DD')}
           domain={['auto', 'auto']}
         />
         <YAxis
@@ -69,10 +70,19 @@ export default () => {
           domain={['auto', 'auto']}
           tickFormatter={value => toComma(value)}
         />
+        <ZAxis
+          type="number"
+          dataKey="z"
+          domain={['auto', 'auto']}
+          range={[50, 500]}
+          name="volume"
+        />
         <Tooltip
           cursor={{ strokeDasharray: '3 3' }}
           formatter={(value, type) =>
-            type === 'price' ? toComma(value) : moment(value).format('MM/DD HH:mm')
+            type === 'date'
+              ? moment(value).format('MM/DD HH:mm')
+              : toComma(value)
           }
         />
         <Scatter name="A school" data={data} fill="#8884d8" />
