@@ -12,6 +12,8 @@ import {parseSearchParams, toComma} from '@madup-inc/utils'
 import axios from 'axios'
 import moment from 'moment'
 
+moment.locale('en')
+
 export default () => {
   const [data, setData] = useState([])
   const { accessKey, secretKey } = parseSearchParams(window.location.search)
