@@ -8,7 +8,7 @@ import {
   ResponsiveContainer,
   YAxis,
 } from 'recharts'
-import {parseSearchParams, toComma} from '@madup-inc/utils'
+import { parseSearchParams, toComma } from '@madup-inc/utils'
 import axios from 'axios'
 import moment from 'moment'
 
@@ -28,12 +28,11 @@ export default () => {
       })
       .then(result => {
         setData(
-          result.data
-            .map(item => ({
-              x: moment(item.created_at).format('MM/DD HH:mm'),
-              y: Number(item.price),
-              z: Number(item.volume * 1000000),
-            })),
+          result.data.map(item => ({
+            x: moment(item.created_at).valueOf(),
+            y: item.price,
+            z: item.volume * 1000000,
+          })),
         )
       })
   }, [])
@@ -54,7 +53,14 @@ export default () => {
         }}
       >
         <CartesianGrid />
-        <XAxis dataKey="x" name="date" angle={10} />
+        <XAxis
+          type="number"
+          dataKey="x"
+          name="date"
+          angle={10}
+          tickFormatter={(value, sub) => moment(value).format('MM/DD')}
+          domain={['auto', 'auto']}
+        />
         <YAxis
           type="number"
           width={80}
@@ -65,7 +71,9 @@ export default () => {
         />
         <Tooltip
           cursor={{ strokeDasharray: '3 3' }}
-          formatter={(value, type) => type === 'price' ? toComma(value) : value}
+          formatter={(value, type) =>
+            type === 'price' ? toComma(value) : moment(value).format('MM/DD HH:mm')
+          }
         />
         <Scatter name="A school" data={data} fill="#8884d8" />
       </ScatterChart>
