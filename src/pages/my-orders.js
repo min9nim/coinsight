@@ -38,7 +38,7 @@ export default () => {
     setLoading(true)
     axios
       .get(`https://buy-btc.vercel.app/api/my-orders`, {
-        params: { accessKey, secretKey, orderBy: 'asc' },
+        params: { accessKey, secretKey, orderBy: 'asc', market: 'KRW-BTC' },
       })
       .then(result => {
         setData(
@@ -102,7 +102,7 @@ export default () => {
                 dataKey="y"
                 name="price"
                 domain={['auto', 'auto']}
-                tickFormatter={value => toComma(value)}
+                tickFormatter={value => value > 1000000 ? toComma(value/1000000) + '백만' : toComma(value)}
               />
               <ZAxis
                 type="number"
