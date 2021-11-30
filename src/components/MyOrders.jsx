@@ -5,13 +5,15 @@ import {
   ScatterChart,
   Tooltip,
   XAxis,
+  ReferenceLine,
   YAxis,
   ZAxis,
 } from 'recharts'
 import moment from 'moment'
 import { toComma } from '@madup-inc/utils'
 
-export default function MyOrders({ data, options, market, setMarket }) {
+export default function MyOrders({ data, currencies, market, setMarket }) {
+  const avgPrice = currencies.find(item => item.currency === market).avg_buy_price
   return (
     <div style={{ height: '100vh' }}>
       <select
@@ -21,9 +23,9 @@ export default function MyOrders({ data, options, market, setMarket }) {
           setMarket(e.target.value)
         }}
       >
-        {options.map(item => (
-          <option value={item}>{item}</option>
-        ))}
+        {currencies.map(item => {
+          return <option key={item.currency} value={item.currency}>{item.unit_currency + '-' + item.currency}</option>
+        })}
       </select>
       <ResponsiveContainer width="100%" height="90%">
         <ScatterChart
@@ -71,6 +73,7 @@ export default function MyOrders({ data, options, market, setMarket }) {
             }
           />
           <Scatter name="A school" data={data} fill="#8884d8" />
+          {avgPrice && <ReferenceLine y={avgPrice} label={toComma(avgPrice)} stroke="green" />}
         </ScatterChart>
       </ResponsiveContainer>
     </div>

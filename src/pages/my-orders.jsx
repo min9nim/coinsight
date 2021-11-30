@@ -6,9 +6,9 @@ import { useLoading } from 'react-hook-loading'
 import MyOrders from '../components/MyOrders'
 
 export default () => {
-  const [market, setMarket] = useState('KRW-BTC')
+  const [market, setMarket] = useState('BTC')
+  const [currencies, setCurrencies] = useState([])
   const [data, setData] = useState([])
-  const [options, setOptions] = useState([])
   const [loading, setLoading] = useLoading()
 
   const [accessKey, setAccessKey] = useState(
@@ -31,9 +31,10 @@ export default () => {
         params: { accessKey, secretKey },
       })
       .then(result => {
-        setOptions(
-          result.data.map(item => item.unit_currency + '-' + item.currency).filter(value => value !== 'KRW-KRW'),
-        )
+        // setOptions(
+        //   result.data.map(item => item.unit_currency + '-' + item.currency).filter(value => value !== 'KRW-KRW'),
+        // )
+        setCurrencies(result.data.filter(item => item.currency !== 'KRW'))
       })
       .catch(err => {
         alert(err.message)
@@ -46,7 +47,7 @@ export default () => {
     setLoading(true)
     axios
       .get(`https://buy-btc.vercel.app/api/my-orders`, {
-        params: { accessKey, secretKey, orderBy: 'asc', market},
+        params: { accessKey, secretKey, orderBy: 'asc', market: 'KRW-' + market},
       })
       .then(result => {
         setData(
@@ -83,7 +84,7 @@ export default () => {
       [
         data.length > 0,
         () => (
-          <MyOrders data={data} options={options} market={market} setMarket={setMarket}/>
+          <MyOrders data={data} currencies={currencies} market={market} setMarket={setMarket}/>
         ),
       ],
       [
