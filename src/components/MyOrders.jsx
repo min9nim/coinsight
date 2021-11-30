@@ -47,7 +47,8 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
           )
         })}
       </select>
-      <ResponsiveContainer width="100%" height="90%">
+      <div style={{ height: 'calc(100vh - 20px)' }}>
+      <ResponsiveContainer width="100%" height="100%">
         <ScatterChart
           margin={{
             top: 20,
@@ -109,6 +110,7 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
           )}
         </ScatterChart>
       </ResponsiveContainer>
+      </div>
     </div>
   )
 }
