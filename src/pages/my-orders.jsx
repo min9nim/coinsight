@@ -31,9 +31,6 @@ export default () => {
         params: { accessKey, secretKey },
       })
       .then(result => {
-        // setOptions(
-        //   result.data.map(item => item.unit_currency + '-' + item.currency).filter(value => value !== 'KRW-KRW'),
-        // )
         setCurrencies(result.data.filter(item => item.currency !== 'KRW'))
       })
       .catch(err => {
