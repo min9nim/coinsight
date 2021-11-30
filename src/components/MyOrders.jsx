@@ -11,9 +11,25 @@ import {
 } from 'recharts'
 import moment from 'moment'
 import { toComma } from '@madup-inc/utils'
+import axios from 'axios'
+import { useState, useEffect } from 'react'
 
 export default function MyOrders({ data, currencies, market, setMarket }) {
-  const avgPrice = currencies.find(item => item.currency === market).avg_buy_price
+  const [currentPrice, setCurrentPrice] = useState()
+
+  useEffect(() => {
+    axios
+      .get(`https://api.upbit.com/v1/candles/days?market=KRW-${market}&count=1`)
+      .then(result => {
+        setCurrentPrice(result.data[0].trade_price)
+      })
+  }, [market])
+
+  console.log('currentPrice', currentPrice)
+
+  const avgPrice = currencies.find(
+    item => item.currency === market,
+  ).avg_buy_price
   return (
     <div style={{ height: '100vh' }}>
       <select
@@ -24,7 +40,11 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
         }}
       >
         {currencies.map(item => {
-          return <option key={item.currency} value={item.currency}>{item.unit_currency + '-' + item.currency}</option>
+          return (
+            <option key={item.currency} value={item.currency}>
+              {item.unit_currency + '-' + item.currency}
+            </option>
+          )
         })}
       </select>
       <ResponsiveContainer width="100%" height="90%">
@@ -73,7 +93,20 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
             }
           />
           <Scatter name="A school" data={data} fill="#8884d8" />
-          {avgPrice && <ReferenceLine y={avgPrice} label={toComma(avgPrice)} stroke="green" />}
+          {avgPrice && (
+            <ReferenceLine
+              y={avgPrice}
+              label={'매수평균: ' + toComma(avgPrice)}
+              stroke="green"
+            />
+          )}
+          {currentPrice && (
+            <ReferenceLine
+              y={currentPrice}
+              label={'현재가: ' + toComma(currentPrice)}
+              stroke="blue"
+            />
+          )}
         </ScatterChart>
       </ResponsiveContainer>
     </div>
