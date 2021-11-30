@@ -25,7 +25,7 @@ export default function MyOrders({ data, options, market, setMarket }) {
           <option value={item}>{item}</option>
         ))}
       </select>
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer width="100%" height="90%">
         <ScatterChart
           margin={{
             top: 20,
