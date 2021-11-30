@@ -43,7 +43,7 @@ export default () => {
       })
       .then(result => {
         setOptions(
-          result.data.map(item => item.unit_currency + '-' + item.currency),
+          result.data.map(item => item.unit_currency + '-' + item.currency).filter(value => value !== 'KRW-KRW'),
         )
       })
       .catch(err => {
@@ -84,8 +84,6 @@ export default () => {
 
     loadData()
   }, [accessKey, secretKey, market])
-
-  console.log('data', data)
 
   if (loading) {
     return null
