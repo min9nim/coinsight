@@ -45,7 +45,7 @@ export default function MyOrders({ data, options, market, setMarket }) {
           />
           <YAxis
             type="number"
-            width={80}
+            width={50}
             dataKey="y"
             name="price"
             domain={['auto', 'auto']}
