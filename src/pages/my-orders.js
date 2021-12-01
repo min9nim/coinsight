@@ -1,3 +1,6 @@
+/** @jsxRuntime classic */
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react'
 import React, { useEffect, useState } from 'react'
 import { oneOf, parseSearchParams } from '@madup-inc/utils'
 import axios from 'axios'
@@ -44,7 +47,12 @@ export default () => {
     setLoading(true)
     axios
       .get(`https://buy-btc.vercel.app/api/my-orders`, {
-        params: { accessKey, secretKey, orderBy: 'asc', market: 'KRW-' + market},
+        params: {
+          accessKey,
+          secretKey,
+          orderBy: 'asc',
+          market: 'KRW-' + market,
+        },
       })
       .then(result => {
         setData(
@@ -81,16 +89,22 @@ export default () => {
       [
         data.length > 0,
         () => (
-          <MyOrders data={data} currencies={currencies} market={market} setMarket={setMarket}/>
+          <MyOrders
+            data={data}
+            currencies={currencies}
+            market={market}
+            setMarket={setMarket}
+          />
         ),
       ],
       [
         accessKey.length !== 40 || secretKey.length !== 40,
         () => (
-          <>
-            <div>
-              <span>accessKey: </span>
+          <div css={div}>
+            <div css={innerDiv}>
+              accessKey:
               <input
+                css={inputStyle}
                 autoFocus
                 maxLength={40}
                 value={accessKey}
@@ -100,9 +114,10 @@ export default () => {
                 }}
               />
             </div>
-            <div>
+            <div css={innerDiv}>
               <span>secretKey:</span>
               <input
+                css={inputStyle}
                 maxLength={40}
                 value={secretKey}
                 onChange={e => {
@@ -111,10 +126,31 @@ export default () => {
                 }}
               />
             </div>
-          </>
+          </div>
         ),
       ],
     ],
     () => <div>There is no data</div>,
   )
 }
+
+
+const div = css`
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+`
+
+const innerDiv = css`
+  margin: 5px;
+  width: 300px;
+  text-align: right;
+`
+
+const inputStyle=css`
+  width: 200px;
+  margin: 0 5px;
+`
