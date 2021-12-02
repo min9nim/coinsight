@@ -87,7 +87,7 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
           {avgPrice && (
             <ReferenceLine
               y={avgPrice}
-              label={'매수평균: ' + toComma(avgPrice)}
+              label={'매수평균: ' + toComma(Math.floor(avgPrice))}
               stroke="green"
             />
           )}
