@@ -88,14 +88,14 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
             <ReferenceLine
               y={avgPrice}
               label={'매수평균: ' + toComma(Math.floor(avgPrice))}
-              stroke="green"
+              stroke="#4cc9f0"
             />
           )}
           {currentPrice && (
             <ReferenceLine
               y={currentPrice}
               label={'현재가: ' + toComma(currentPrice)}
-              stroke="blue"
+              stroke="#ffadad"
             />
           )}
         </ScatterChart>
