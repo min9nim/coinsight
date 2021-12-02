@@ -39,6 +39,8 @@ export default () => {
       .catch(err => {
         alert(err.message)
         localStorage.clear()
+        setAccessKey('')
+        setSecretKey('')
       })
       .finally(() => {
         setLoading(false)
@@ -66,6 +68,8 @@ export default () => {
       .catch(err => {
         alert(err.message)
         localStorage.clear()
+        setAccessKey('')
+        setSecretKey('')
       })
       .finally(() => {
         setLoading(false)

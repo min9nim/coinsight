@@ -11,21 +11,11 @@ import {
 } from 'recharts'
 import moment from 'moment'
 import { toComma } from '@madup-inc/utils'
-import axios from 'axios'
-import { useState, useEffect } from 'react'
+import useTradePrice from '../SWRs/useTradePrice'
 
 export default function MyOrders({ data, currencies, market, setMarket }) {
-  const [currentPrice, setCurrentPrice] = useState()
-
-  useEffect(() => {
-    axios
-      .get(`https://api.upbit.com/v1/candles/days?market=KRW-${market}&count=1`)
-      .then(result => {
-        setCurrentPrice(result.data[0].trade_price)
-      })
-  }, [market])
-
-  console.log('currentPrice', currentPrice)
+  const {data: tradePrice} = useTradePrice(market)
+  const currentPrice = tradePrice?.trade_price
 
   const avgPrice = currencies.find(
     item => item.currency === market,
