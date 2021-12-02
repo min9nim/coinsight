@@ -1,19 +1,15 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { oneOf, parseSearchParams } from '@madup-inc/utils'
-import axios from 'axios'
 import moment from 'moment'
-import { useLoading } from 'react-hook-loading'
 import MyOrders from '../components/MyOrders'
 import useMyAccounts from '../SWRs/useMyAccounts'
+import useMyOrders from '../SWRs/useMyOrders'
 
 export default () => {
   const [market, setMarket] = useState('BTC')
-  const [data, setData] = useState([])
-  const [loading, setLoading] = useLoading()
-
   const [accessKey, setAccessKey] = useState(
     () =>
       parseSearchParams(window.location.search).accessKey ||
@@ -29,50 +25,14 @@ export default () => {
 
   const {data: myAccounts} = useMyAccounts({accessKey, secretKey})
 
+  const {data: myOrders} = useMyOrders({market, accessKey,secretKey})
+  const data = myOrders?.map(item => ({
+    x: moment(item.created_at).valueOf(),
+    y: item.price,
+    z: item.volume,
+  })) || []
+
   const currencies = myAccounts || []
-
-  const loadData = () => {
-    setLoading(true)
-    axios
-      .get(`https://buy-btc.vercel.app/api/my-orders`, {
-        params: {
-          accessKey,
-          secretKey,
-          orderBy: 'asc',
-          market: 'KRW-' + market,
-        },
-      })
-      .then(result => {
-        setData(
-          result.data.map(item => ({
-            x: moment(item.created_at).valueOf(),
-            y: item.price,
-            z: item.volume,
-          })),
-        )
-      })
-      .catch(err => {
-        alert(err.message)
-        localStorage.clear()
-        setAccessKey('')
-        setSecretKey('')
-      })
-      .finally(() => {
-        setLoading(false)
-      })
-  }
-
-  useEffect(() => {
-    if (accessKey.length !== 40 || secretKey.length !== 40) {
-      return
-    }
-
-    loadData()
-  }, [accessKey, secretKey, market])
-
-  if (loading) {
-    return null
-  }
 
   return oneOf(
     [
