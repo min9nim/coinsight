@@ -7,10 +7,10 @@ import axios from 'axios'
 import moment from 'moment'
 import { useLoading } from 'react-hook-loading'
 import MyOrders from '../components/MyOrders'
+import useMyAccounts from '../SWRs/useMyAccounts'
 
 export default () => {
   const [market, setMarket] = useState('BTC')
-  const [currencies, setCurrencies] = useState([])
   const [data, setData] = useState([])
   const [loading, setLoading] = useLoading()
 
@@ -27,25 +27,11 @@ export default () => {
       '',
   )
 
-  const loadData = () => {
-    setLoading(true)
-    axios
-      .get(`https://buy-btc.vercel.app/api/my-accounts`, {
-        params: { accessKey, secretKey },
-      })
-      .then(result => {
-        setCurrencies(result.data.filter(item => item.currency !== 'KRW'))
-      })
-      .catch(err => {
-        alert(err.message)
-        localStorage.clear()
-        setAccessKey('')
-        setSecretKey('')
-      })
-      .finally(() => {
-        setLoading(false)
-      })
+  const {data: myAccounts} = useMyAccounts({accessKey, secretKey})
 
+  const currencies = myAccounts || []
+
+  const loadData = () => {
     setLoading(true)
     axios
       .get(`https://buy-btc.vercel.app/api/my-orders`, {
