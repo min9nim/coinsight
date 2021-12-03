@@ -12,10 +12,11 @@ export default ({ market, accessKey, secretKey }) => {
       setLoading(true)
       try {
         const result = await axios
-          .get(`https://buy-btc.vercel.app/api/my-orders`, {
+          .get(process.env.REACT_APP_API_SERVER + `/my-orders`, {
             params: {
               accessKey,
               secretKey,
+              state: 'cancel',
               orderBy: 'asc',
               market: 'KRW-' + market,
             },
