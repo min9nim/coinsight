@@ -1,16 +1,16 @@
 import React from 'react'
 import MyTrades from './pages/my-orders'
-import {LoadingProvider} from 'react-hook-loading'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { LoadingProvider } from 'react-hook-loading'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
   return (
     <LoadingProvider>
-      <MyTrades/>
+      <MyTrades />
       <ToastContainer />
     </LoadingProvider>
-  );
+  )
 }
 
-export default App;
+export default App
