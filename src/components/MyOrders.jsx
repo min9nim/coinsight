@@ -12,6 +12,7 @@ import {
 import moment from 'moment'
 import { toComma } from '@madup-inc/utils'
 import useTradePrice from '../SWRs/useTradePrice'
+import { last, sort, head } from 'ramda'
 
 const ONE_MILLION = 1000000
 
@@ -23,10 +24,8 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
     item => item.currency === market,
   ).avg_buy_price
 
-  const [minYValue, maxYValue] = [
-    Math.min(...data.map(item => item.y)),
-    Math.max(...data.map(item => item.y)),
-  ]
+  const ySorted = sort((a, b) => a.y - b.y, data)
+  const [minYValue, maxYValue] = [head(ySorted).y, last(ySorted).y]
 
   const profit =
     Math.floor(((currentPrice - avgPrice) / avgPrice) * 10000) / 100
