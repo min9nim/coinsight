@@ -43,7 +43,7 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
         </select>
         <img src={`https://static.upbit.com/logos/${market}.png`} style={{width: 19, marginLeft:10}}/>
           <span style={{ color: profit > 0 ? 'red' : 'blue', marginLeft: 10, fontWeight: 'bold' }}>
-          {profit}%
+            {profit > 0 && '+'}{profit}%
         </span>
       </div>
       <div style={{ height: 'calc(100vh - 20px)' }}>
