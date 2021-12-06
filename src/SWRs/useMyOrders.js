@@ -16,7 +16,7 @@ export default ({ market, accessKey, secretKey }) => {
             params: {
               accessKey,
               secretKey,
-              state: 'cancel',
+              // state: 'cancel',
               orderBy: 'asc',
               market: 'KRW-' + market,
             },
