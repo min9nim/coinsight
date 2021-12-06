@@ -9435,10 +9435,10 @@ react-error-overlay@^6.0.9:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.9.tgz#3c743010c9359608c375ecd6bc76f35d93995b0a"
   integrity sha512-nQTTcUu+ATDbrSD1BZHr5kgSD4oF8OFjxun8uAaL8RwPBacGBNPf/yAuVVdx17N8XNzRDMrZ9XcKZHCjPW+9ew==
 
-react-hook-loading@^0.0.6:
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/react-hook-loading/-/react-hook-loading-0.0.6.tgz#9b015f612154b45862c8961a82a389f2bc5a631b"
-  integrity sha512-arT+kOPA19+cuh6vrsMVMOmCyVeetLWQyfCnLF9E4ljUCezjW4x0oMvAViSdu6LmZzOJF2PHy36wnZwaWuzcUw==
+react-hook-loading@0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/react-hook-loading/-/react-hook-loading-0.0.7.tgz#6443061107cb2d24010772b636617c36876f7cde"
+  integrity sha512-5nYDREgivrAdPjroYBxM4QoeSyP99fgbsDgcuwnBy16CcYzA4uVRnjp3wX5GICNnXgToj6UvI9hs5JE95gnNgA==
 
 react-is@^16.10.2, react-is@^16.7.0, react-is@^16.8.1:
   version "16.13.1"
