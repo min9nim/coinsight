@@ -1,6 +1,7 @@
 import useSWR from 'swr'
 import axios from 'axios'
 import { useLoading } from 'react-hook-loading'
+import { toast } from 'react-toastify'
 
 export default function useMyAccounts({ accessKey, secretKey }){
   const [, setLoading] = useLoading()
@@ -24,7 +25,7 @@ export default function useMyAccounts({ accessKey, secretKey }){
     },
     {
       onError(err, key, config){
-        alert(err.message)
+        toast(err.message)
         localStorage.clear()
         // window.location.reload()
       }
