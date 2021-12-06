@@ -1,7 +1,7 @@
 import useSWR from 'swr'
 import axios from 'axios'
 
-export default market => {
+export default function useTradePrice(market){
   const { data } = useSWR(market, market =>
     axios.get(
       `https://api.upbit.com/v1/candles/days?market=KRW-${market}&count=1`,

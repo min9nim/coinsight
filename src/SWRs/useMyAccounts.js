@@ -2,7 +2,7 @@ import useSWR from 'swr'
 import axios from 'axios'
 import { useLoading } from 'react-hook-loading'
 
-export default ({ accessKey, secretKey }) => {
+export default function useMyAccounts({ accessKey, secretKey }){
   const [, setLoading] = useLoading()
   const { data } = useSWR(
     accessKey.length !== 40 || secretKey.length !== 40
