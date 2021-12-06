@@ -23,6 +23,11 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
     item => item.currency === market,
   ).avg_buy_price
 
+  const [minYValue, maxYValue] = [
+    Math.min(...data.map(item => item.y)),
+    Math.max(...data.map(item => item.y)),
+  ]
+
   const profit =
     Math.floor(((currentPrice - avgPrice) / avgPrice) * 10000) / 100
   return (
@@ -43,9 +48,19 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
             )
           })}
         </select>
-        <img src={`https://static.upbit.com/logos/${market}.png`} style={{width: 19, marginLeft:10}}/>
-          <span style={{ color: profit > 0 ? 'red' : 'blue', marginLeft: 10, fontWeight: 'bold' }}>
-            {profit > 0 && '+'}{profit}%
+        <img
+          src={`https://static.upbit.com/logos/${market}.png`}
+          style={{ width: 19, marginLeft: 10 }}
+        />
+        <span
+          style={{
+            color: profit > 0 ? 'red' : 'blue',
+            marginLeft: 10,
+            fontWeight: 'bold',
+          }}
+        >
+          {profit > 0 && '+'}
+          {profit}%
         </span>
       </div>
       <div style={{ height: 'calc(100vh - 20px)' }}>
@@ -72,7 +87,10 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
               width={50}
               dataKey="y"
               name="price"
-              domain={['auto', 'auto']}
+              domain={[
+                minYValue < currentPrice ? 'auto' : currentPrice,
+                maxYValue > currentPrice ? 'auto' : currentPrice,
+              ]}
               tickFormatter={value =>
                 value > ONE_MILLION
                   ? toComma(value / ONE_MILLION) + '백만'
