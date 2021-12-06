@@ -20,8 +20,11 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
   const avgPrice = currencies.find(
     item => item.currency === market,
   ).avg_buy_price
+
+  const profit = Math.floor(((currentPrice - avgPrice) / avgPrice) * 10000) / 100
   return (
     <div style={{ height: '100vh' }}>
+      <div>
       <select
         value={market}
         name="market"
@@ -37,6 +40,9 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
           )
         })}
       </select>
+        <span style={{color: profit > 0 ? 'red' : 'blue', marginLeft: 10}}>{profit} %</span>
+
+      </div>
       <div style={{ height: 'calc(100vh - 20px)' }}>
       <ResponsiveContainer width="100%" height="100%">
         <ScatterChart
