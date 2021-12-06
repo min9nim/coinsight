@@ -16,7 +16,7 @@ export default ({ accessKey, secretKey }) => {
           .get(process.env.REACT_APP_API_SERVER  + `/my-accounts`, {
             params: { accessKey, secretKey },
           })
-          .then(result => result.data.filter(item => item.currency !== 'KRW'))
+          .then(result => result.data.filter(item => item.currency !== 'KRW' && item.currency !== 'VTHO'))
         return result
       }finally {
         setLoading(false)

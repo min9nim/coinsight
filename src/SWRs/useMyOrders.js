@@ -21,7 +21,7 @@ export default ({ market, accessKey, secretKey }) => {
               market: 'KRW-' + market,
             },
           })
-          .then(result => result.data.filter(item => item.market !== 'KRW-VHTO'))
+          .then(result => result.data)
         return result
       } finally {
         setLoading(false)
