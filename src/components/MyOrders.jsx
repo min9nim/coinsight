@@ -13,6 +13,8 @@ import moment from 'moment'
 import { toComma } from '@madup-inc/utils'
 import useTradePrice from '../SWRs/useTradePrice'
 
+const ONE_MILLION = 1000000
+
 export default function MyOrders({ data, currencies, market, setMarket }) {
   const { data: tradePrice } = useTradePrice(market)
   const currentPrice = tradePrice?.trade_price
@@ -72,8 +74,8 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
               name="price"
               domain={['auto', 'auto']}
               tickFormatter={value =>
-                value > 1000000
-                  ? toComma(value / 1000000) + '백만'
+                value > ONE_MILLION
+                  ? toComma(value / ONE_MILLION) + '백만'
                   : toComma(value)
               }
             />
