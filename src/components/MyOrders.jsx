@@ -107,7 +107,7 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
               cursor={{ strokeDasharray: '3 3' }}
               formatter={(value, type) =>
                 type === 'date'
-                  ? moment(value).format('MM/DD HH:mm')
+                  ? moment(value).format('MM/DD dd HH:mm')
                   : toComma(value)
               }
             />
