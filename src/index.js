@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import moment from 'moment'
 
-moment.locale('en')
+moment.locale('ko')
 
 ReactDOM.render(
   <React.StrictMode>
