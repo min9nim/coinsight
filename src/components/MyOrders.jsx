@@ -20,9 +20,8 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
   const { data: tradePrice } = useTradePrice(market)
   const currentPrice = tradePrice?.trade_price
 
-  const avgPrice = currencies.find(
-    item => item.currency === market,
-  ).avg_buy_price
+  const coin = currencies.find(item => item.currency === market)
+  const avgPrice = coin.avg_buy_price
 
   const ySorted = sort((a, b) => a.y - b.y, data)
   const [minYValue, maxYValue] = [head(ySorted).y, last(ySorted).y]
@@ -31,7 +30,7 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
     Math.floor(((currentPrice - avgPrice) / avgPrice) * 10000) / 100
   return (
     <div style={{ height: '100vh', padding: 3 }}>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+      <div style={{ display: 'flex', alignItems: 'center'}}>
         <select
           value={market}
           name="market"
@@ -60,6 +59,15 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
         >
           {profit > 0 && '+'}
           {profit}%
+        </span>
+        <span
+          style={{
+            color: 'grey',
+            marginLeft: 10,
+            fontWeight: 'bold',
+          }}
+        >
+          {coin.balance + ' ' +  coin.currency}
         </span>
       </div>
       <div style={{ height: 'calc(100vh - 20px)' }}>
