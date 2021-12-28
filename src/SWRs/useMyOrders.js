@@ -27,7 +27,7 @@ export default function useMyOrders({ market, accessKey, secretKey }) {
     },
     {
       onError(err, key, config) {
-        toast(err.message)
+        toast.error(err.message)
         localStorage.clear()
         // window.location.reload()
       },
