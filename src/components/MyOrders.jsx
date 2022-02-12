@@ -71,7 +71,7 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
             fontWeight: 'bold',
           }}
         >
-          - 보유수량: {coin.balance + ' ' + coin.currency}
+          - 보유수량: {coin.balance}
         </span>
         <span
           style={{
