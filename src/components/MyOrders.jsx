@@ -32,7 +32,7 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
   const profit = Math.floor(coin.balance * (currentPrice - avgPrice))
   return (
     <div style={{ height: '100vh', padding: 3 }}>
-      <div>
+      <div style={{ display: 'flex', alignItems: 'center'}}>
         <select
           value={market}
           name="market"
