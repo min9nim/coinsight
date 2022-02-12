@@ -58,7 +58,7 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
           }}
         >
           {profit > 0 && '+'}
-          {profit}%
+          {String(profit).padEnd(6, '0')}%
         </span>
         <span
           style={{
@@ -68,6 +68,15 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
           }}
         >
           {coin.balance + ' ' +  coin.currency}
+        </span>
+          <span
+              style={{
+                  color: 'grey',
+                  marginLeft: 10,
+                  fontWeight: 'bold',
+              }}
+          >
+          => {toComma(Math.floor(coin.balance * currentPrice))}원
         </span>
       </div>
       <div style={{ height: 'calc(100vh - 20px)' }}>
