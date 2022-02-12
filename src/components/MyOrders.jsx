@@ -26,11 +26,13 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
   const ySorted = sort((a, b) => a.y - b.y, data)
   const [minYValue, maxYValue] = [head(ySorted).y, last(ySorted).y]
 
-  const profit =
+  const profitPercent =
     Math.floor(((currentPrice - avgPrice) / avgPrice) * 10000) / 100
+
+  const profit = Math.floor(coin.balance * (currentPrice - avgPrice))
   return (
     <div style={{ height: '100vh', padding: 3 }}>
-      <div style={{ display: 'flex', alignItems: 'center'}}>
+      <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
         <select
           value={market}
           name="market"
@@ -52,13 +54,13 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
         />
         <span
           style={{
-            color: profit > 0 ? 'red' : 'blue',
+            color: profitPercent > 0 ? 'red' : 'blue',
             marginLeft: 10,
             fontWeight: 'bold',
           }}
         >
-          {profit > 0 && '+'}
-          {String(profit).padEnd(6, '0')}%
+          {profitPercent > 0 && '+'}
+          {String(profitPercent).padEnd(6, '0')}%
         </span>
         <span
           style={{
@@ -67,16 +69,34 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
             fontWeight: 'bold',
           }}
         >
-          {coin.balance + ' ' +  coin.currency}
+          - 보유수량: {coin.balance + ' ' + coin.currency}
         </span>
-          <span
-              style={{
-                  color: 'grey',
-                  marginLeft: 10,
-                  fontWeight: 'bold',
-              }}
-          >
-          => {toComma(Math.floor(coin.balance * currentPrice))}원
+        <span
+          style={{
+            color: 'grey',
+            marginLeft: 10,
+            fontWeight: 'bold',
+          }}
+        >
+          - 평가금액: {toComma(Math.floor(coin.balance * currentPrice))}원
+        </span>
+        <span
+          style={{
+            color: 'grey',
+            marginLeft: 10,
+            fontWeight: 'bold',
+          }}
+        >
+          - 매수금액: {toComma(Math.floor(coin.balance * avgPrice))}원
+        </span>
+        <span
+          style={{
+            color: 'grey',
+            marginLeft: 10,
+            fontWeight: 'bold',
+          }}
+        >
+            - 평가손익: {toComma(profit)}원
         </span>
       </div>
       <div style={{ height: 'calc(100vh - 20px)' }}>
