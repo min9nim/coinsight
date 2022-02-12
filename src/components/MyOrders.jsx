@@ -32,7 +32,7 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
   const profit = Math.floor(coin.balance * (currentPrice - avgPrice))
   return (
     <div style={{ height: '100vh', padding: 3 }}>
-      <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
+      <div>
         <select
           value={market}
           name="market"
@@ -62,6 +62,8 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
           {profitPercent > 0 && '+'}
           {String(profitPercent).padEnd(6, '0')}%
         </span>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', marginTop: 5 }}>
         <span
           style={{
             color: 'grey',
@@ -96,10 +98,10 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
             fontWeight: 'bold',
           }}
         >
-            - 평가손익: {toComma(profit)}원
+          - 평가손익: {toComma(profit)}원
         </span>
       </div>
-      <div style={{ height: 'calc(100vh - 20px)' }}>
+      <div style={{ height: 'calc(100vh - 40px)' }}>
         <ResponsiveContainer width="100%" height="100%">
           <ScatterChart
             margin={{
