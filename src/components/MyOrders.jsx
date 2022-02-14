@@ -145,7 +145,6 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
             <Tooltip
               cursor={{ strokeDasharray: '3 3' }}
               formatter={(value, type, {payload}) => {
-                  console.log(value, type, {payload})
                   if( type === 'volume'){
                       return value + ' : ' + toComma(Math.round(Number(payload.y) * Number(payload.z)))
                   }
