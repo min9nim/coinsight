@@ -2,6 +2,7 @@ import useSWR from 'swr'
 import axios from 'axios'
 import { useLoading } from 'react-hook-loading'
 import { toast } from 'react-toastify'
+import { strMatched } from '@madup-inc/utils'
 
 export default function useMyAccounts({ accessKey, secretKey }) {
   const [, setLoading] = useLoading()
@@ -18,10 +19,7 @@ export default function useMyAccounts({ accessKey, secretKey }) {
           })
           .then(result =>
             result.data.filter(
-              item =>
-                item.currency !== 'KRW' &&
-                item.currency !== 'VTHO' &&
-                item.currency !== 'SOLO',
+              item => !strMatched(['KRW', 'VTHO', 'SOLO'], item.currency),
             ),
           )
         return result
