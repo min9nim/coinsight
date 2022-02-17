@@ -13,6 +13,7 @@ import moment from 'moment'
 import { toComma } from '@madup-inc/utils'
 import useTradePrice from '../SWRs/useTradePrice'
 import { last, sort, head } from 'ramda'
+import Header1 from './Header1'
 
 const ONE_MILLION = 1000000
 
@@ -26,44 +27,25 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
   const ySorted = sort((a, b) => a.y - b.y, data)
   const [minYValue, maxYValue] = [head(ySorted).y, last(ySorted).y]
 
-  const profitPercent =
-    Math.floor(((currentPrice - avgPrice) / avgPrice) * 10000) / 100
-
   const profit = Math.floor(coin.balance * (currentPrice - avgPrice))
   return (
     <div style={{ height: '100vh', padding: 3 }}>
-      <div style={{ display: 'flex', alignItems: 'center'}}>
-        <select
-          value={market}
-          name="market"
-          onChange={e => {
-            setMarket(e.target.value)
-          }}
-        >
-          {currencies.map(item => {
-            return (
-              <option key={item.currency} value={item.currency}>
-                {item.unit_currency + '-' + item.currency}
-              </option>
-            )
-          })}
-        </select>
-        <img
-          src={`https://static.upbit.com/logos/${market}.png`}
-          style={{ width: 19, marginLeft: 10 }}
-        />
-        <span
-          style={{
-            color: profitPercent > 0 ? 'red' : 'blue',
-            marginLeft: 10,
-            fontWeight: 'bold',
-          }}
-        >
-          {profitPercent > 0 && '+'}
-          {String(profitPercent).padEnd(6, '0')}%
-        </span>
-      </div>
-      <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', marginTop: 5 }}>
+      <Header1
+        avgPrice={avgPrice}
+        currencies={currencies}
+        currentPrice={currentPrice}
+        market={market}
+        setMarket={setMarket}
+      />
+
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          marginTop: 5,
+        }}
+      >
         <span
           style={{
             color: 'grey',
@@ -144,15 +126,18 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
             />
             <Tooltip
               cursor={{ strokeDasharray: '3 3' }}
-              formatter={(value, type, {payload}) => {
-                  if( type === 'volume'){
-                      return value + ' : ' + toComma(Math.round(Number(payload.y) * Number(payload.z)))
-                  }
-                  return type === 'date'
-                      ? moment(value).format('MM/DD dd HH:mm')
-                      : toComma(value)
-              }
-              }
+              formatter={(value, type, { payload }) => {
+                if (type === 'volume') {
+                  return (
+                    value +
+                    ' : ' +
+                    toComma(Math.round(Number(payload.y) * Number(payload.z)))
+                  )
+                }
+                return type === 'date'
+                  ? moment(value).format('MM/DD dd HH:mm')
+                  : toComma(value)
+              }}
             />
             <Scatter name="A school" data={data} fill="#8884d8" />
             {avgPrice && (
