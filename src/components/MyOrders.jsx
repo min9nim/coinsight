@@ -12,7 +12,7 @@ import {
 import moment from 'moment'
 import { toComma } from '@madup-inc/utils'
 import useTradePrice from '../SWRs/useTradePrice'
-import { last, sort, head } from 'ramda'
+import {last, sort, head, propEq} from 'ramda'
 import Header1 from './Header1'
 import Header2 from './Header2'
 
@@ -101,7 +101,8 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
                   : toComma(value)
               }}
             />
-            <Scatter name="A school" data={data} fill="#8884d8" />
+            <Scatter name="bid" data={data.filter(propEq('side', 'bid'))} fill="#8884d8" />
+            <Scatter name="ask" data={data.filter(propEq('side', 'ask'))} fill="#82ca9d" />
             {avgPrice && (
               <ReferenceLine
                 y={avgPrice}

@@ -30,6 +30,7 @@ export default () => {
     x: moment(item.created_at).valueOf(),
     y: Number(item.price),
     z: Number(item.volume),
+      side: item.side,
   })) || []
 
   const currencies = myAccounts || []
