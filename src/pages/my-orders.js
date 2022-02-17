@@ -28,8 +28,8 @@ export default () => {
   const {data: myOrders} = useMyOrders({market, accessKey,secretKey})
   const data = myOrders?.map(item => ({
     x: moment(item.created_at).valueOf(),
-    y: item.price,
-    z: item.volume,
+    y: Number(item.price),
+    z: Number(item.volume),
   })) || []
 
   const currencies = myAccounts || []
