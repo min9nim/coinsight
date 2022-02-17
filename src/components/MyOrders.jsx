@@ -101,8 +101,8 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
                   : toComma(value)
               }}
             />
-            <Scatter name="bid" data={data.filter(propEq('side', 'bid'))} fill="#8884d8" />
-            <Scatter name="ask" data={data.filter(propEq('side', 'ask'))} fill="#82ca9d" />
+            <Scatter name="bid" data={data.filter(propEq('side', 'bid'))} fill="#c95b98" />
+            <Scatter name="ask" data={data.filter(propEq('side', 'ask'))} fill="#5548b8" />
             {avgPrice && (
               <ReferenceLine
                 y={avgPrice}
