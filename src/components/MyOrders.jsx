@@ -14,6 +14,7 @@ import { toComma } from '@madup-inc/utils'
 import useTradePrice from '../SWRs/useTradePrice'
 import { last, sort, head } from 'ramda'
 import Header1 from './Header1'
+import Header2 from './Header2'
 
 const ONE_MILLION = 1000000
 
@@ -37,52 +38,13 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
         market={market}
         setMarket={setMarket}
       />
+      <Header2
+        currentPrice={currentPrice}
+        avgPrice={avgPrice}
+        coin={coin}
+        profit={profit}
+      />
 
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          marginTop: 5,
-        }}
-      >
-        <span
-          style={{
-            color: 'grey',
-            marginLeft: 10,
-            fontWeight: 'bold',
-          }}
-        >
-          - 보유수량: {coin.balance}
-        </span>
-        <span
-          style={{
-            color: 'grey',
-            marginLeft: 10,
-            fontWeight: 'bold',
-          }}
-        >
-          - 평가금액: {toComma(Math.floor(coin.balance * currentPrice))}원
-        </span>
-        <span
-          style={{
-            color: 'grey',
-            marginLeft: 10,
-            fontWeight: 'bold',
-          }}
-        >
-          - 매수금액: {toComma(Math.floor(coin.balance * avgPrice))}원
-        </span>
-        <span
-          style={{
-            color: 'grey',
-            marginLeft: 10,
-            fontWeight: 'bold',
-          }}
-        >
-          - 평가손익: {toComma(profit)}원
-        </span>
-      </div>
       <div style={{ height: 'calc(100vh - 70px)' }}>
         <ResponsiveContainer width="100%" height="100%">
           <ScatterChart
