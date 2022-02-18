@@ -1,6 +1,8 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react'
+import anime from 'animejs'
+import {useEffect, useRef} from 'react'
 
 export default function Login({
   accessKey,
@@ -8,8 +10,25 @@ export default function Login({
   secretKey,
   setSecretKey,
 }) {
+  const aniWrapper = useRef(null)
+
+  useEffect(() => {
+    anime({
+      targets: aniWrapper.current,
+      translateX: 0,
+      scale: 1,
+      rotate: '1turn',
+    })
+  }, [])
+
   return (
-    <div css={div}>
+    <div
+      css={div}
+      ref={aniWrapper}
+      style={{
+        transform: 'translateX(-500px) scale(0.5)',
+      }}
+    >
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <img
           src="https://bitcoin.org/img/icons/opengraph.png"
@@ -18,7 +37,7 @@ export default function Login({
         <h1 style={{ display: 'inline', padding: '0 5px' }}>Coinsight</h1>
       </div>
       <fieldset>
-        <legend>업비트의 자산조회 키를 입력해 주세요 . 🔑 </legend>
+        <legend>업비트의 자산조회용 키를 입력해 주세요 . 🔑 </legend>
         <div css={innerDiv}>
           accessKey:
           <input
