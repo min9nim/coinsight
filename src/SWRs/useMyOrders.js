@@ -6,7 +6,7 @@ import { toast } from 'react-hot-toast'
 export default function useMyOrders({ market, accessKey, secretKey }) {
   const [, setLoading] = useLoading()
   const { data } = useSWR(
-    !market || accessKey.length !== 40 || secretKey.length !== 40
+    !market || accessKey.length !== 40 || secretKey.length !== 40 || accessKey === secretKey
       ? null
       : [market, accessKey, secretKey],
     async (market, accessKey, secretKey) => {
@@ -29,7 +29,7 @@ export default function useMyOrders({ market, accessKey, secretKey }) {
       onError(err, key, config) {
         toast.error(err.message, { position: 'top-right' })
         localStorage.clear()
-        // window.location.reload()
+        // window.location.assign('/')
       },
     },
   )

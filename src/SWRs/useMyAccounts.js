@@ -7,7 +7,9 @@ import { strMatched } from '@madup-inc/utils'
 export default function useMyAccounts({ accessKey, secretKey }) {
   const [, setLoading] = useLoading()
   const { data } = useSWR(
-    accessKey.length !== 40 || secretKey.length !== 40
+    accessKey.length !== 40 ||
+      secretKey.length !== 40 ||
+      accessKey === secretKey
       ? null
       : [accessKey, secretKey],
     async (accessKey, secretKey) => {
@@ -29,9 +31,9 @@ export default function useMyAccounts({ accessKey, secretKey }) {
     },
     {
       onError(err, key, config) {
-          toast.error(err.message, { position: 'top-right' })
+        toast.error(err.message, { position: 'top-right' })
         localStorage.clear()
-        // window.location.reload()
+        // window.location.assign('/')
       },
     },
   )

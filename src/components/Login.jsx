@@ -2,14 +2,24 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react'
 import anime from 'animejs'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import {parseSearchParams} from '@madup-inc/utils'
+import {toast} from 'react-hot-toast'
 
-export default function Login({
-  accessKey,
-  setAccessKey,
-  secretKey,
-  setSecretKey,
-}) {
+export default function Login() {
+
+  const [accessKey, setAccessKey] = useState(
+      () =>
+          parseSearchParams(window.location.search).accessKey ||
+          window.localStorage.getItem('accessKey') ||
+          '',
+  )
+  const [secretKey, setSecretKey] = useState(
+      () =>
+          parseSearchParams(window.location.search).secretKey ||
+          window.localStorage.getItem('secretKey') ||
+          '',
+  )
   const aniWrapper = useRef(null)
 
   useEffect(() => {
@@ -20,6 +30,17 @@ export default function Login({
       rotate: '1turn',
     })
   }, [])
+
+
+  useEffect(() => {
+    if(accessKey === secretKey){
+      toast.error('accessKey 와 secretKey 에 동일한 값이 입력되었습니다')
+      return
+    }
+    if(accessKey.length === 40 && secretKey.length === 40){
+      window.location.assign('/my-orders')
+    }
+  }, [accessKey, secretKey])
 
   return (
     <div
@@ -39,12 +60,12 @@ export default function Login({
           accessKey:
           <input
             css={inputStyle}
-            autoFocus
             maxLength={40}
             value={accessKey}
-            onFocus={() => navigator.clipboard.readText().then(clipText => {
+            onFocus={(e) => navigator.clipboard.readText().then(clipText => {
               setAccessKey(clipText)
               window.localStorage.setItem('accessKey', clipText)
+              e.target.blur()
             })}
             onChange={e => {
               setAccessKey(e.target.value)
@@ -58,9 +79,10 @@ export default function Login({
             css={inputStyle}
             maxLength={40}
             value={secretKey}
-            onFocus={() => navigator.clipboard.readText().then(clipText => {
+            onFocus={(e) => navigator.clipboard.readText().then(clipText => {
               setSecretKey(clipText)
               window.localStorage.setItem('secretKey', clipText)
+              e.target.blur()
             })}
             onChange={e => {
               setSecretKey(e.target.value)
