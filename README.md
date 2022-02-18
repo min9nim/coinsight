@@ -20,5 +20,15 @@ https://upbit.com/service_center/open_api_guide
 
 ![image](https://user-images.githubusercontent.com/6068828/154770274-d69ad165-668a-4634-a73a-a2cb05b46eb1.png)
 
+<br/>
+<br/>
+
+# 스크린샷
+코인 별 지난 거래내역을 시각적으로 확인할 수 있다.
+- 원의 크기는 볼륨을 의미
+- 단, 시장가 매수 건은 포함되지 않습니다.(지정가 매수 건만 표시됨)
+
+![image](https://user-images.githubusercontent.com/6068828/154771183-e48814b3-dbc4-49f8-80e2-7a8d49a91328.png)
+
 
 
