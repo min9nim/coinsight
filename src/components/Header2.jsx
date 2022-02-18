@@ -20,7 +20,7 @@ export default function Header2({ coin, currentPrice, avgPrice, profit }) {
         <span
           key={idx}
           style={{
-            color: 'grey',
+            color: '#777',
             margin: '3px 5px',
             fontWeight: 'bold',
           }}

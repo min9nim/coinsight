@@ -31,7 +31,7 @@ export default function Login({
     >
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <img
-          src="https://bitcoin.org/img/icons/opengraph.png"
+          src="/images/btc-log.png"
           style={{ width: 40, height: 40 }}
         />
         <h1 style={{ display: 'inline', padding: '0 5px' }}>Coinsight</h1>
