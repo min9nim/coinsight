@@ -90,6 +90,23 @@ export default function Login() {
             }}
           />
         </div>
+        <div style={{textAlign: 'right', padding: '10px 10px 0'}}>
+          <button onClick={() => {
+            if(accessKey.length !== 40){
+              toast.error('accessKey 가 유효하지 않습니다.')
+              return
+            }
+            if(secretKey.length !== 40){
+              toast.error('secretKey 가 유효하지 않습니다.')
+              return
+            }
+            if(accessKey === secretKey){
+              toast.error('accessKey 와 secretKey 가 동일합니다.')
+              return
+            }
+            window.location.assign('/my-orders')
+          }}>Login</button>
+        </div>
       </fieldset>
     </div>
   )
