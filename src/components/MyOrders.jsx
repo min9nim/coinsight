@@ -15,6 +15,7 @@ import useTradePrice from '../SWRs/useTradePrice'
 import { last, sort, head, propEq } from 'ramda'
 import Header1 from './Header1'
 import Header2 from './Header2'
+import {useRef, useEffect, useState} from 'react'
 
 const ONE_MILLION = 1000000
 
@@ -28,10 +29,20 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
     const ySorted = sort((a, b) => a.y - b.y, data)
     const [minYValue, maxYValue] = [head(ySorted).y, last(ySorted).y]
 
+    const [height, setHeight] = useState(70)
+    const headerRef = useRef(null)
+    useEffect(() => {
+        setTimeout(() => {
+            setHeight(headerRef.current.offsetHeight + 20)
+        },500)
+
+    }, [])
+
     const profit = Math.floor(coin.balance * (currentPrice - avgPrice))
     return (
         <div style={{ padding: 3, fontSize: 14 }}>
             <div
+                ref={headerRef}
                 style={{
                     display: 'flex',
                     flexWrap: 'wrap',
@@ -53,7 +64,7 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
                 />
             </div>
 
-            <div style={{ height: 'calc(100vh - 80px)' }}>
+            <div style={{ height: `calc(100vh - ${height}px)` }}>
                 <ResponsiveContainer width="100%" height="100%">
                     <ScatterChart
                         margin={{
