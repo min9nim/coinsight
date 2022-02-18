@@ -33,7 +33,7 @@ export default function useMyAccounts({ accessKey, secretKey }) {
       onError(err, key, config) {
         toast.error(err.message, { position: 'top-right' })
         localStorage.clear()
-        // window.location.assign('/')
+        window.location.assign('/')
       },
     },
   )
