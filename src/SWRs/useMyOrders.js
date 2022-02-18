@@ -1,7 +1,7 @@
 import useSWR from 'swr'
 import axios from 'axios'
 import { useLoading } from 'react-hook-loading'
-import { toast } from 'react-toastify'
+import { toast } from 'react-hot-toast'
 
 export default function useMyOrders({ market, accessKey, secretKey }) {
   const [, setLoading] = useLoading()
@@ -27,7 +27,7 @@ export default function useMyOrders({ market, accessKey, secretKey }) {
     },
     {
       onError(err, key, config) {
-        toast.error(err.message)
+        toast.error(err.message, { position: 'top-right' })
         localStorage.clear()
         // window.location.reload()
       },

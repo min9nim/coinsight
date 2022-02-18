@@ -1,9 +1,9 @@
 import {Suspense} from 'react'
 import MyTrades from './pages/my-orders'
-import { LoadingProvider, DefaultLoading } from 'react-hook-loading'
-import { ToastContainer } from 'react-toastify'
+import {DefaultLoading, LoadingProvider} from 'react-hook-loading'
+import {ToastContainer} from 'react-toastify'
 import ErrorBoundary from './ErrorBoundary'
-import 'react-toastify/dist/ReactToastify.css'
+import {Toaster} from 'react-hot-toast'
 
 export default function App() {
   return (
@@ -14,6 +14,8 @@ export default function App() {
         </Suspense>
         <ToastContainer />
       </LoadingProvider>
+        <Toaster />
+
     </ErrorBoundary>
   )
 }
