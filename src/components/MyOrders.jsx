@@ -31,19 +31,23 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
   const profit = Math.floor(coin.balance * (currentPrice - avgPrice))
   return (
     <div style={{ height: '100vh', padding: 3 }}>
-      <Header1
-        avgPrice={avgPrice}
-        currencies={currencies}
-        currentPrice={currentPrice}
-        market={market}
-        setMarket={setMarket}
-      />
-      <Header2
-        currentPrice={currentPrice}
-        avgPrice={avgPrice}
-        coin={coin}
-        profit={profit}
-      />
+        <div style={{display:'flex', flexWrap: 'wrap', justifyContent: 'space-between'}}>
+            <Header1
+                avgPrice={avgPrice}
+                currencies={currencies}
+                currentPrice={currentPrice}
+                market={market}
+                setMarket={setMarket}
+            />
+            <Header2
+                currentPrice={currentPrice}
+                avgPrice={avgPrice}
+                coin={coin}
+                profit={profit}
+            />
+
+        </div>
+
 
       <div style={{ height: 'calc(100vh - 70px)' }}>
         <ResponsiveContainer width="100%" height="100%">
