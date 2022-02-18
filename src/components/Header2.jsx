@@ -3,7 +3,7 @@ import moment from 'moment'
 
 export default function Header2({ coin, currentPrice, avgPrice, profit }) {
   const texts = [
-      `- 현재시각: ${moment().format('YY.MM.DD HH:mm')}`,
+      `- 현재시각: ${moment().format('YY/MM/DD HH:mm')}`,
     `- 보유수량: ${coin.balance}`,
     `- 평가금액: ${toComma(Math.floor(coin.balance * currentPrice))}원`,
     `- 매수금액: ${toComma(Math.floor(coin.balance * avgPrice))}원`,
