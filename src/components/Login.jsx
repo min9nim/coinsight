@@ -2,7 +2,7 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react'
 import anime from 'animejs'
-import {useEffect, useRef} from 'react'
+import { useEffect, useRef } from 'react'
 
 export default function Login({
   accessKey,
@@ -30,10 +30,7 @@ export default function Login({
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <img
-          src="/images/btc-log.png"
-          style={{ width: 40, height: 40 }}
-        />
+        <img src="/images/btc-log.png" style={{ width: 40, height: 40 }} />
         <h1 style={{ display: 'inline', padding: '0 5px' }}>Coinsight</h1>
       </div>
       <fieldset>
@@ -45,6 +42,10 @@ export default function Login({
             autoFocus
             maxLength={40}
             value={accessKey}
+            onFocus={() => navigator.clipboard.readText().then(clipText => {
+              setAccessKey(clipText)
+              window.localStorage.setItem('accessKey', clipText)
+            })}
             onChange={e => {
               setAccessKey(e.target.value)
               window.localStorage.setItem('accessKey', e.target.value)
@@ -57,6 +58,10 @@ export default function Login({
             css={inputStyle}
             maxLength={40}
             value={secretKey}
+            onFocus={() => navigator.clipboard.readText().then(clipText => {
+              setSecretKey(clipText)
+              window.localStorage.setItem('secretKey', clipText)
+            })}
             onChange={e => {
               setSecretKey(e.target.value)
               window.localStorage.setItem('secretKey', e.target.value)
