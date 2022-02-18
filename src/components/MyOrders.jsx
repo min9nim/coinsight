@@ -45,8 +45,7 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
                 ref={headerRef}
                 style={{
                     display: 'flex',
-                    flexWrap: 'wrap',
-                    justifyContent: 'space-between',
+                    flexDirection: 'column'
                 }}
             >
                 <Header1
