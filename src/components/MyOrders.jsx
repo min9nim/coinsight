@@ -10,39 +10,34 @@ import {
     ZAxis,
 } from 'recharts'
 import moment from 'moment'
-import { toComma } from '@madup-inc/utils'
+import {oneOf, toComma} from '@madup-inc/utils'
 import useTradePrice from '../SWRs/useTradePrice'
 import { last, sort, head, propEq } from 'ramda'
 import Header1 from './Header1'
 import Header2 from './Header2'
-import {useRef, useEffect, useState} from 'react'
 
 const ONE_MILLION = 1000000
 
 export default function MyOrders({ data, currencies, market, setMarket }) {
     const { data: tradePrice } = useTradePrice(market)
     const currentPrice = tradePrice?.trade_price
-
     const coin = currencies.find(item => item.currency === market)
     const avgPrice = coin.avg_buy_price
-
     const ySorted = sort((a, b) => a.y - b.y, data)
     const [minYValue, maxYValue] = [head(ySorted).y, last(ySorted).y]
-
-    const [height, setHeight] = useState(70)
-    const headerRef = useRef(null)
-    useEffect(() => {
-        setTimeout(() => {
-            setHeight(headerRef.current.offsetHeight + 20)
-        },500)
-
-    }, [])
-
     const profit = Math.floor(coin.balance * (currentPrice - avgPrice))
+    const height = oneOf(
+        [
+            [window.innerWidth > 652, 68],
+            [window.innerWidth > 348, 92],
+            [window.innerWidth > 330, 116],
+        ],
+        147,
+    )
+
     return (
         <div style={{ padding: 3, fontSize: 14 }}>
             <div
-                ref={headerRef}
                 style={{
                     display: 'flex',
                     flexDirection: 'column'
