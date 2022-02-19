@@ -41,3 +41,10 @@ https://upbit.com/service_center/open_api_guide
 
 ![image](https://user-images.githubusercontent.com/6068828/154774310-a6a0e44a-6822-4350-914f-3c7c1bb8c852.png)
 
+<br/>
+<br/>
+
+# 버그신고 및 시스템 개선사항
+버그 및 개선사항은 해당 저장소의 이슈로 등록 바랍니다.
+
+👉🏻 https://github.com/min9nim/coinsight/issues
