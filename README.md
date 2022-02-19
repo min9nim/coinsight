@@ -3,6 +3,9 @@
 
 https://coinsight.vercel.app
 
+![image](https://user-images.githubusercontent.com/6068828/154771183-e48814b3-dbc4-49f8-80e2-7a8d49a91328.png)
+
+
 <br/>
 <br/>
 
@@ -36,8 +39,5 @@ https://upbit.com/service_center/open_api_guide
 - 단, 시장가 매수 건은 포함되지 않습니다.(지정가 매수 건만 표시됨)
 - 점을 클릭하면 당시 거래내역 상세를 확인할 수 있습니다.
 
-![image](https://user-images.githubusercontent.com/6068828/154771183-e48814b3-dbc4-49f8-80e2-7a8d49a91328.png)
-
 ![image](https://user-images.githubusercontent.com/6068828/154774310-a6a0e44a-6822-4350-914f-3c7c1bb8c852.png)
-
 
