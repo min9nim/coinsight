@@ -142,6 +142,7 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
                                     '매수평균: ' + toComma(Math.floor(avgPrice))
                                 }
                                 stroke="#702963"
+                                strokeDasharray="3 3"
                             />
                         )}
                         {currentPrice && (
@@ -149,6 +150,7 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
                                 y={currentPrice}
                                 label={'현재가: ' + toComma(currentPrice)}
                                 stroke="#D22B2B"
+                                strokeDasharray="7 3"
 
                             />
                         )}
