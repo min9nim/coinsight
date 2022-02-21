@@ -46,7 +46,7 @@ export default function Header1({
                 />
                 <span
                     style={{
-                        color: profitPercent > 0 ? 'red' : 'blue',
+                        color: profitPercent > 0 ? '#C41E3A' : '#5D3FD3',
                         marginLeft: 10,
                         fontWeight: 'bold',
                     }}

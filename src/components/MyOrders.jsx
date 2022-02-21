@@ -68,7 +68,7 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
                             left: 20,
                         }}
                     >
-                        <CartesianGrid />
+                        <CartesianGrid vertical strokeDasharray="4 1 2" />
                         <XAxis
                             type="number"
                             dataKey="x"
@@ -141,14 +141,15 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
                                 label={
                                     '매수평균: ' + toComma(Math.floor(avgPrice))
                                 }
-                                stroke="#4cc9f0"
+                                stroke="#702963"
                             />
                         )}
                         {currentPrice && (
                             <ReferenceLine
                                 y={currentPrice}
                                 label={'현재가: ' + toComma(currentPrice)}
-                                stroke="#ffadad"
+                                stroke="#D22B2B"
+
                             />
                         )}
                     </ScatterChart>
