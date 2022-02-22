@@ -56,7 +56,7 @@ export default function Header1({
                 </span>
             </div>
 
-            <sup style={{color: '#777'}}>{moment().format('YY/MM/DD HH:mm')}</sup>
+            <span style={{color: '#777'}}>{moment().format('YY/MM/DD HH:mm')}</span>
         </div>
     )
 }
