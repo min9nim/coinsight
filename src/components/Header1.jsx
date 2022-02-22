@@ -1,4 +1,5 @@
 import moment from 'moment'
+import useFearGreedIndex from '../SWRs/useFearGreedIndex'
 
 export default function Header1({
     market,
@@ -10,10 +11,15 @@ export default function Header1({
     const profitPercent =
         Math.floor(((currentPrice - avgPrice) / avgPrice) * 10000) / 100
 
+
+    const {data} = useFearGreedIndex()
+    const fgIndex = data?.data.datasets[0].data[0]
+
     return (
         <div
             style={{
                 display: 'flex',
+                flexWrap: 'wrap',
                 alignItems: 'center',
                 justifyContent: 'space-between',
             }}
@@ -56,7 +62,11 @@ export default function Header1({
                 </span>
             </div>
 
-            <span style={{color: '#777'}}>{moment().format('YY/MM/DD HH:mm')}</span>
+            <div>
+                <span style={{color: '#777', }}>* Fear&Greed: {fgIndex}</span>
+                <span style={{color: '#777', marginLeft: 10}}>* Date: {moment().format('YY/MM/DD HH:mm')}</span>
+            </div>
+
         </div>
     )
 }
