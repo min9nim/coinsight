@@ -68,7 +68,7 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
                             left: 20,
                         }}
                     >
-                        <CartesianGrid vertical strokeDasharray="4 1 2" />
+                        <CartesianGrid vertical strokeDasharray="2" />
                         <XAxis
                             type="number"
                             dataKey="x"
@@ -142,7 +142,7 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
                                     '매수평균: ' + toComma(Math.floor(avgPrice))
                                 }
                                 stroke="#702963"
-                                strokeDasharray="3 3"
+                                strokeDasharray="1 4"
                             />
                         )}
                         {currentPrice && (
@@ -150,7 +150,7 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
                                 y={currentPrice}
                                 label={'현재가: ' + toComma(currentPrice)}
                                 stroke="#D22B2B"
-                                strokeDasharray="7 3"
+                                strokeDasharray="2 4"
 
                             />
                         )}
