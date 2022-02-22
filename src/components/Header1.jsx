@@ -63,8 +63,8 @@ export default function Header1({
             </div>
 
             <div>
-                <span style={{color: '#777', }}>* Fear&Greed: {fgIndex}</span>
-                <span style={{color: '#777', marginLeft: 10}}>* Date: {moment().format('YY/MM/DD HH:mm')}</span>
+                <span style={{color: '#777', }}>Fear&Greed: {fgIndex}</span>
+                <span style={{color: '#777', marginLeft: 10}}>{moment().format('YY/MM/DD HH:mm')}</span>
             </div>
 
         </div>
