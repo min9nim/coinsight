@@ -111,7 +111,6 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
                         <Tooltip
                             cursor={{ strokeDasharray: '3 3' }}
                             formatter={(value, type, { payload }) => {
-                                console.log({payload, type})
                                 if (type === 'volume') {
                                     return (
                                         value +
