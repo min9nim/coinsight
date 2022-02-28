@@ -98,7 +98,7 @@ export default function Header1({
                 </select>
             </div>
 
-            <div>
+            <div style={{margin: '3px 0'}}>
                 <span >Fear&Greed: {fgIndex}</span>
                 <span style={{marginLeft: 10 }}>
                     {moment().format('YY/MM/DD HH:mm')}

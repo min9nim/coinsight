@@ -30,11 +30,12 @@ export default function MyOrders({ data, currencies, market, setMarket,theme }) 
     const height = oneOf(
         [
             [window.innerWidth > 652, 68],
-            [window.innerWidth > 348, 92],
+            [window.innerWidth > 348, 115],
             [window.innerWidth > 330, 116],
         ],
-        147,
+        150,
     )
+    console.log({height})
     const [searchParam] = useSearchParams()
     const xScale = searchParam.get('xScale') || 'index'
 
@@ -145,7 +146,7 @@ export default function MyOrders({ data, currencies, market, setMarket,theme }) 
                                 label={
                                     '매수평균: ' + toComma(Math.floor(avgPrice))
                                 }
-                                stroke={theme === 'dark' ? '#c3f6bc' : '#702963'}
+                                stroke={theme === 'dark' ? '#8afd7c' : '#702963'}
                                 strokeDasharray="2 4"
                             />
                         )}
@@ -153,7 +154,7 @@ export default function MyOrders({ data, currencies, market, setMarket,theme }) 
                             <ReferenceLine
                                 y={currentPrice}
                                 label={'현재가: ' + toComma(currentPrice)}
-                                stroke={theme === 'dark' ? '#f17979' : '#D22B2B'}
+                                stroke={theme === 'dark' ? '#f5a7a7' : '#D22B2B'}
                                 strokeDasharray="2 4"
 
                             />
