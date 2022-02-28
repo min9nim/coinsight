@@ -1,6 +1,6 @@
 import moment from 'moment'
 import useFearGreedIndex from '../SWRs/useFearGreedIndex'
-import {useSearchParams} from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 
 export default function Header1({
     market,
@@ -12,8 +12,7 @@ export default function Header1({
     const profitPercent =
         Math.floor(((currentPrice - avgPrice) / avgPrice) * 10000) / 100
 
-
-    const {data} = useFearGreedIndex()
+    const { data } = useFearGreedIndex()
     const fgIndex = data?.data.datasets[0].data[0]
 
     const [searchParam, setSearchParam] = useSearchParams()
@@ -58,7 +57,14 @@ export default function Header1({
                 />
                 <span
                     style={{
-                        color: profitPercent > 0 ? '#C41E3A' : '#5D3FD3',
+                        color:
+                            theme === 'dark'
+                                ? profitPercent > 0
+                                    ? 'rgb(248 50 39)'
+                                    : 'rgb(139 171 246)'
+                                : profitPercent > 0
+                                ? '#C41E3A'
+                                : '#5D3FD3',
                         marginLeft: 10,
                         fontWeight: 'bold',
                     }}
@@ -66,50 +72,38 @@ export default function Header1({
                     {profitPercent > 0 && '+'}
                     {String(profitPercent).padEnd(6, '0')}%
                 </span>
-
             </div>
             <div>
                 <select
                     value={xScale}
                     name="xScale"
                     onChange={e => {
-                        setSearchParam({theme, xScale: e.target.value})
+                        setSearchParam({ theme, xScale: e.target.value })
                     }}
-                    style={{marginLeft: 2}}
-
+                    style={{ marginLeft: 2 }}
                 >
-                    <option value='index'>
-                        index
-                    </option>
-                    <option  value='date'>
-                        date
-                    </option>
+                    <option value="index">index</option>
+                    <option value="date">date</option>
                 </select>
                 <select
                     value={theme}
                     name="theme"
                     onChange={e => {
-                        setSearchParam({theme: e.target.value, xScale})
+                        setSearchParam({ theme: e.target.value, xScale })
                     }}
-                    style={{marginLeft: 2}}
-
+                    style={{ marginLeft: 2 }}
                 >
-                    <option value='dark'>
-                        dark
-                    </option>
-                    <option  value='light'>
-                        light
-                    </option>
+                    <option value="dark">dark</option>
+                    <option value="light">light</option>
                 </select>
-
-
             </div>
 
             <div>
-                <span style={{color: '#777', }}>Fear&Greed: {fgIndex}</span>
-                <span style={{color: '#777', marginLeft: 10}}>{moment().format('YY/MM/DD HH:mm')}</span>
+                <span >Fear&Greed: {fgIndex}</span>
+                <span style={{marginLeft: 10 }}>
+                    {moment().format('YY/MM/DD HH:mm')}
+                </span>
             </div>
-
         </div>
     )
 }

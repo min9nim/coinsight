@@ -37,6 +37,7 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
     )
     const [searchParam] = useSearchParams()
     const xScale = searchParam.get('xScale') || 'index'
+    const theme = searchParam.get('theme')
 
     return (
         <div style={{ padding: 3, fontSize: 14 }}>
@@ -145,7 +146,7 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
                                 label={
                                     '매수평균: ' + toComma(Math.floor(avgPrice))
                                 }
-                                stroke="#702963"
+                                stroke={theme === 'dark' ? '#41aef6' : '#702963'}
                                 strokeDasharray="1 4"
                             />
                         )}
@@ -153,7 +154,7 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
                             <ReferenceLine
                                 y={currentPrice}
                                 label={'현재가: ' + toComma(currentPrice)}
-                                stroke="#D22B2B"
+                                stroke={theme === 'dark' ? '#f5a7a7' : '#D22B2B'}
                                 strokeDasharray="2 4"
 
                             />
