@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import moment from 'moment'
+import 'moment/locale/ko'
 
 moment.locale('ko')
 
