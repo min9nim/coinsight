@@ -15,6 +15,7 @@ import useTradePrice from '../SWRs/useTradePrice'
 import { last, sort, head, propEq } from 'ramda'
 import Header1 from './Header1'
 import Header2 from './Header2'
+import {useSearchParams} from 'react-router-dom'
 
 const ONE_MILLION = 1000000
 
@@ -34,9 +35,8 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
         ],
         147,
     )
-
-    const xScale = 'index'
-    // const xScale = 'date'
+    const [searchParam] = useSearchParams()
+    const xScale = searchParam.get('xScale') || 'index'
 
     return (
         <div style={{ padding: 3, fontSize: 14 }}>

@@ -1,5 +1,6 @@
 import moment from 'moment'
 import useFearGreedIndex from '../SWRs/useFearGreedIndex'
+import {useSearchParams} from 'react-router-dom'
 
 export default function Header1({
     market,
@@ -14,6 +15,10 @@ export default function Header1({
 
     const {data} = useFearGreedIndex()
     const fgIndex = data?.data.datasets[0].data[0]
+
+    const [searchParam, setSearchParam] = useSearchParams()
+
+    const xScale = searchParam.get('xScale') || 'index'
 
     return (
         <div
@@ -60,7 +65,24 @@ export default function Header1({
                     {profitPercent > 0 && '+'}
                     {String(profitPercent).padEnd(6, '0')}%
                 </span>
+
             </div>
+            <select
+                value={xScale}
+                name="xScale"
+                onChange={e => {
+                    setSearchParam({xScale: e.target.value})
+                }}
+                style={{marginLeft: 2}}
+
+            >
+                <option value='index'>
+                    index
+                </option>
+                <option  value='date'>
+                    date
+                </option>
+            </select>
 
             <div>
                 <span style={{color: '#777', }}>Fear&Greed: {fgIndex}</span>
