@@ -19,7 +19,7 @@ import {useSearchParams} from 'react-router-dom'
 
 const ONE_MILLION = 1000000
 
-export default function MyOrders({ data, currencies, market, setMarket }) {
+export default function MyOrders({ data, currencies, market, setMarket,theme }) {
     const { data: tradePrice } = useTradePrice(market)
     const currentPrice = tradePrice?.trade_price
     const coin = currencies.find(item => item.currency === market)
@@ -37,7 +37,6 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
     )
     const [searchParam] = useSearchParams()
     const xScale = searchParam.get('xScale') || 'index'
-    const theme = searchParam.get('theme')
 
     return (
         <div style={{ padding: 3, fontSize: 14 }}>
@@ -146,15 +145,15 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
                                 label={
                                     '매수평균: ' + toComma(Math.floor(avgPrice))
                                 }
-                                stroke={theme === 'dark' ? '#41aef6' : '#702963'}
-                                strokeDasharray="1 4"
+                                stroke={theme === 'dark' ? '#c3f6bc' : '#702963'}
+                                strokeDasharray="2 4"
                             />
                         )}
                         {currentPrice && (
                             <ReferenceLine
                                 y={currentPrice}
                                 label={'현재가: ' + toComma(currentPrice)}
-                                stroke={theme === 'dark' ? '#f5a7a7' : '#D22B2B'}
+                                stroke={theme === 'dark' ? '#f17979' : '#D22B2B'}
                                 strokeDasharray="2 4"
 
                             />

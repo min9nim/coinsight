@@ -8,13 +8,14 @@ import {useSearchParams} from 'react-router-dom'
 
 export default function App() {
     const [searchParam] =useSearchParams()
+    const theme = searchParam.get('theme') || 'dark'
     return (
         <ErrorBoundary>
             <LoadingProvider>
-                <div className={searchParam.get('theme') || 'dark'}>
+                <div className={theme}>
                     <Suspense fallback={<DefaultLoading />}>
                         {window.location.pathname === '/my-orders' ? (
-                            <MyTrades />
+                            <MyTrades theme={theme}/>
                         ) : (
                             <Login />
                         )}

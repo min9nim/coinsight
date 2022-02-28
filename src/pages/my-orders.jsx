@@ -4,7 +4,7 @@ import MyOrders from '../components/MyOrders'
 import useMyAccounts from '../SWRs/useMyAccounts'
 import useMyOrders from '../SWRs/useMyOrders'
 
-export default () => {
+export default ({theme}) => {
     const accessKey = window.localStorage.getItem('accessKey') || ''
     const secretKey = window.localStorage.getItem('secretKey') || ''
     const [market, setMarket] = useState('BTC')
@@ -32,6 +32,7 @@ export default () => {
             currencies={currencies}
             market={market}
             setMarket={setMarket}
+            theme={theme}
         />
     ) : (
         <div style={{ margin: 10 }}>There is no data</div>
