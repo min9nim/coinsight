@@ -23,6 +23,10 @@ export default function MyOrders({ data, currencies, market, setMarket,theme }) 
     const { data: tradePrice } = useTradePrice(market)
     const currentPrice = tradePrice?.trade_price
     const coin = currencies.find(item => item.currency === market)
+    const [searchParam] = useSearchParams()
+    if(!coin){
+        return <div>새로고침 해보세요</div>
+    }
     const avgPrice = coin.avg_buy_price
     const ySorted = sort((a, b) => a.y - b.y, data)
     const [minYValue, maxYValue] = [head(ySorted).y, last(ySorted).y]
@@ -36,8 +40,8 @@ export default function MyOrders({ data, currencies, market, setMarket,theme }) 
         150,
     )
     // console.log({height})
-    const [searchParam] = useSearchParams()
     const xScale = searchParam.get('xScale') || 'index'
+
 
     return (
         <div style={{ padding: 3, fontSize: 14 }}>
