@@ -35,7 +35,7 @@ export default function MyOrders({ data, currencies, market, setMarket,theme }) 
         ],
         150,
     )
-    console.log({height})
+    // console.log({height})
     const [searchParam] = useSearchParams()
     const xScale = searchParam.get('xScale') || 'index'
 
