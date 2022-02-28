@@ -19,6 +19,7 @@ export default function Header1({
     const [searchParam, setSearchParam] = useSearchParams()
 
     const xScale = searchParam.get('xScale') || 'index'
+    const theme = searchParam.get('theme') || 'dark'
 
     return (
         <div
@@ -67,22 +68,42 @@ export default function Header1({
                 </span>
 
             </div>
-            <select
-                value={xScale}
-                name="xScale"
-                onChange={e => {
-                    setSearchParam({xScale: e.target.value})
-                }}
-                style={{marginLeft: 2}}
+            <div>
+                <select
+                    value={xScale}
+                    name="xScale"
+                    onChange={e => {
+                        setSearchParam({theme, xScale: e.target.value})
+                    }}
+                    style={{marginLeft: 2}}
 
-            >
-                <option value='index'>
-                    index
-                </option>
-                <option  value='date'>
-                    date
-                </option>
-            </select>
+                >
+                    <option value='index'>
+                        index
+                    </option>
+                    <option  value='date'>
+                        date
+                    </option>
+                </select>
+                <select
+                    value={theme}
+                    name="theme"
+                    onChange={e => {
+                        setSearchParam({theme: e.target.value, xScale})
+                    }}
+                    style={{marginLeft: 2}}
+
+                >
+                    <option value='dark'>
+                        dark
+                    </option>
+                    <option  value='light'>
+                        light
+                    </option>
+                </select>
+
+
+            </div>
 
             <div>
                 <span style={{color: '#777', }}>Fear&Greed: {fgIndex}</span>
