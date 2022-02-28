@@ -35,6 +35,9 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
         147,
     )
 
+    const xScale = 'index'
+    // const xScale = 'date'
+
     return (
         <div style={{ padding: 3, fontSize: 14 }}>
             <div
@@ -71,10 +74,10 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
                         <CartesianGrid vertical strokeDasharray="2" />
                         <XAxis
                             type="number"
-                            dataKey="x"
+                            dataKey={xScale}
                             name="date"
                             angle={10}
-                            tickFormatter={value =>
+                            tickFormatter={value => xScale === 'index' ? value :
                                 moment(value).format('YY/MM/DD')
                             }
                             domain={['auto', 'auto']}
@@ -108,6 +111,7 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
                         <Tooltip
                             cursor={{ strokeDasharray: '3 3' }}
                             formatter={(value, type, { payload }) => {
+                                console.log({payload, type})
                                 if (type === 'volume') {
                                     return (
                                         value +
@@ -120,9 +124,10 @@ export default function MyOrders({ data, currencies, market, setMarket }) {
                                         )
                                     )
                                 }
-                                return type === 'date'
-                                    ? moment(value).format('MM/DD dd HH:mm')
-                                    : toComma(value)
+                                if(type === 'date'){
+                                    return moment(payload.date).format('YY/MM/DD dd HH:mm')
+                                }
+                                return toComma(value)
                             }}
                         />
                         <Scatter
