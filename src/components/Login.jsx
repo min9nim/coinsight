@@ -38,6 +38,8 @@ export default function Login() {
       return
     }
     if(accessKey.length === 40 && secretKey.length === 40){
+      window.localStorage.setItem('accessKey', accessKey)
+      window.localStorage.setItem('secretKey', secretKey)
       window.location.assign('/my-orders')
     }
   }, [accessKey, secretKey])
