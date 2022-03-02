@@ -3,10 +3,12 @@ import moment from 'moment'
 import MyOrders from '../components/MyOrders'
 import useMyAccounts from '../SWRs/useMyAccounts'
 import useMyOrders from '../SWRs/useMyOrders'
+import {useSearchParams} from 'react-router-dom'
 
 export default ({theme}) => {
-    const accessKey = window.localStorage.getItem('accessKey') || ''
-    const secretKey = window.localStorage.getItem('secretKey') || ''
+    const [searchParam] = useSearchParams()
+    const accessKey = searchParam.get('accessKey') || window.localStorage.getItem('accessKey') || ''
+    const secretKey = searchParam.get('secretKey') ||window.localStorage.getItem('secretKey') || ''
     const [market, setMarket] = useState('BTC')
 
     const { data: myAccounts } = useMyAccounts({
