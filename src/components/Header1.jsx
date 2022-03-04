@@ -99,7 +99,7 @@ export default function Header1({
             </div>
 
             <div style={{margin: '3px 0'}}>
-                <span >Fear&Greed: {fgIndex}</span>
+                <a href="https://alternative.me/crypto/fear-and-greed-index/">Fear&Greed: {fgIndex}</a>
                 <span style={{marginLeft: 10 }}>
                     {moment().format('YY/MM/DD HH:mm')}
                 </span>
