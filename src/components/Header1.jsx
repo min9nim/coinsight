@@ -20,6 +20,8 @@ export default function Header1({
     const xScale = searchParam.get('xScale') || 'index'
     const theme = searchParam.get('theme') || 'dark'
 
+    const [left, right] = String(profitPercent).split('.')
+
     return (
         <div
             style={{
@@ -70,7 +72,7 @@ export default function Header1({
                     }}
                 >
                     {profitPercent > 0 && '+'}
-                    {String(profitPercent).padEnd(6, '0')}%
+                    {right ? (left + '.' + right.padEnd(2, '0')) : left}%
                 </span>
             </div>
             <div>
