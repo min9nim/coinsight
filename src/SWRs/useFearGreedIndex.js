@@ -7,7 +7,7 @@ export default function useFearGreedIndex(){
       `https://buy-btc.vercel.app/api/fear-greed-index?days=1`,
     ).then(result => result.data),
     {
-      refreshInterval: 500
+      refreshInterval: 0
     }
   )
   return {data}
