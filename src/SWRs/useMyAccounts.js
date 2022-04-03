@@ -20,9 +20,7 @@ export default function useMyAccounts({ accessKey, secretKey }) {
             params: { accessKey, secretKey },
           })
           .then(result =>
-            result.data.filter(
-              item => !strMatched(['KRW', 'VTHO', 'SOLO'], item.currency),
-            ),
+            result.data,
           )
         return result
       } finally {

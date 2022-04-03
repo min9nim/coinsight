@@ -22,6 +22,7 @@ const ONE_MILLION = 1000000
 export default function MyOrders({ data, currencies, market, setMarket,theme }) {
     const { data: tradePrice } = useTradePrice(market)
     const currentPrice = tradePrice?.trade_price
+    const krw = currencies.find(item => item.currency === 'KRW') || {}
     const coin = currencies.find(item => item.currency === market)
     const [searchParam] = useSearchParams()
     if(!coin){
@@ -57,6 +58,7 @@ export default function MyOrders({ data, currencies, market, setMarket,theme }) 
                     currentPrice={currentPrice}
                     market={market}
                     setMarket={setMarket}
+                    krw={krw}
                 />
                 <Header2
                     currentPrice={currentPrice}

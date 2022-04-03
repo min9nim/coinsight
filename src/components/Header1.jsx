@@ -1,6 +1,7 @@
 import moment from 'moment'
 import useFearGreedIndex from '../SWRs/useFearGreedIndex'
 import { useSearchParams } from 'react-router-dom'
+import { strMatched, toComma } from '@madup-inc/utils'
 
 export default function Header1({
     market,
@@ -8,6 +9,7 @@ export default function Header1({
     currencies,
     currentPrice,
     avgPrice,
+  krw,
 }) {
     const profitPercent =
         Math.floor(((currentPrice - avgPrice) / avgPrice) * 10000) / 100
@@ -44,7 +46,9 @@ export default function Header1({
                         setMarket(e.target.value)
                     }}
                 >
-                    {currencies.map(item => {
+                    {currencies.filter(
+                      item => !strMatched(['KRW', 'VTHO', 'SOLO'], item.currency),
+                    ).map(item => {
                         return (
                             <option key={item.currency} value={item.currency}>
                                 {item.unit_currency + '-' + item.currency}
@@ -98,7 +102,13 @@ export default function Header1({
                     <option value="dark">dark</option>
                     <option value="light">light</option>
                 </select>
+
             </div>
+          <div>
+            * {toComma(Math.floor(krw.balance))}
+            - {toComma(Math.floor(krw.locked))}
+            = {toComma(Math.floor(krw.balance - krw.locked))}
+          </div>
 
             <div style={{margin: '3px 0'}}>
                 <a href="https://alternative.me/crypto/fear-and-greed-index/">Fear&Greed: {fgIndex}</a>
