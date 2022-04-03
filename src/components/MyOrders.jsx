@@ -35,10 +35,9 @@ export default function MyOrders({ data, currencies, market, setMarket,theme }) 
     const height = oneOf(
         [
             [window.innerWidth > 652, 68],
-            [window.innerWidth > 348, 115],
             [window.innerWidth > 330, 116],
         ],
-        150,
+        190,
     )
     // console.log({height})
     const xScale = searchParam.get('xScale') || 'index'
