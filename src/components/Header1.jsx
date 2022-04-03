@@ -9,7 +9,7 @@ export default function Header1({
     currencies,
     currentPrice,
     avgPrice,
-  krw,
+    krw,
 }) {
     const profitPercent =
         Math.floor(((currentPrice - avgPrice) / avgPrice) * 10000) / 100
@@ -46,15 +46,24 @@ export default function Header1({
                         setMarket(e.target.value)
                     }}
                 >
-                    {currencies.filter(
-                      item => !strMatched(['KRW', 'VTHO', 'SOLO'], item.currency),
-                    ).map(item => {
-                        return (
-                            <option key={item.currency} value={item.currency}>
-                                {item.unit_currency + '-' + item.currency}
-                            </option>
+                    {currencies
+                        .filter(
+                            item =>
+                                !strMatched(
+                                    ['KRW', 'VTHO', 'SOLO'],
+                                    item.currency,
+                                ),
                         )
-                    })}
+                        .map(item => {
+                            return (
+                                <option
+                                    key={item.currency}
+                                    value={item.currency}
+                                >
+                                    {item.unit_currency + '-' + item.currency}
+                                </option>
+                            )
+                        })}
                 </select>
                 <img
                     src={`https://static.upbit.com/logos/${market}.png`}
@@ -76,7 +85,7 @@ export default function Header1({
                     }}
                 >
                     {profitPercent > 0 && '+'}
-                    {right ? (left + '.' + right.padEnd(2, '0')) : left}%
+                    {right ? left + '.' + right.padEnd(2, '0') : left}%
                 </span>
             </div>
             <div>
@@ -102,17 +111,18 @@ export default function Header1({
                     <option value="dark">dark</option>
                     <option value="light">light</option>
                 </select>
-
             </div>
-          <div>
-            * {toComma(Math.floor(krw.balance))}
-            - {toComma(Math.floor(krw.locked))}
-            = {toComma(Math.floor(krw.balance - krw.locked))}
-          </div>
+            <div>
+                * {toComma(Math.floor(krw.balance))} -{' '}
+                {toComma(Math.floor(krw.locked))} ={' '}
+                {toComma(Math.floor(krw.balance - krw.locked))}
+            </div>
 
-            <div style={{margin: '3px 0'}}>
-                <a href="https://alternative.me/crypto/fear-and-greed-index/">Fear&Greed: {fgIndex}</a>
-                <span style={{marginLeft: 10 }}>
+            <div style={{ margin: '3px 0' }}>
+                <a href="https://alternative.me/crypto/fear-and-greed-index/">
+                    Fear&Greed: {fgIndex}
+                </a>
+                <span style={{ marginLeft: 10 }}>
                     {moment().format('YY/MM/DD HH:mm')}
                 </span>
             </div>
