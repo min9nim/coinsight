@@ -62,7 +62,8 @@ export default function Header1({
                                     key={item.currency}
                                     value={item.currency}
                                 >
-                                    {item.unit_currency + '-' + item.currency}
+                                    {/*{item.unit_currency + '-' + item.currency}*/}
+                                  {item.currency}
                                 </option>
                             )
                         })}
