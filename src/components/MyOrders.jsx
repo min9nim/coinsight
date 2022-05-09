@@ -1,34 +1,43 @@
 import {
-    CartesianGrid,
-    ResponsiveContainer,
-    Scatter,
-    ScatterChart,
-    Tooltip,
-    XAxis,
-    ReferenceLine,
-    YAxis,
-    ZAxis,
+  CartesianGrid,
+  ReferenceLine,
+  ResponsiveContainer,
+  Scatter,
+  ScatterChart,
+  Tooltip,
+  XAxis,
+  YAxis,
+  ZAxis,
 } from 'recharts'
 import moment from 'moment'
-import {oneOf, toComma} from '@madup-inc/utils'
+import { oneOf, toComma } from '@madup-inc/utils'
 import useTradePrice from '../SWRs/useTradePrice'
-import { last, sort, head, propEq } from 'ramda'
+import { head, last, propEq, sort } from 'ramda'
 import Header1 from './Header1'
 import Header2 from './Header2'
-import {useSearchParams} from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 
 const ONE_MILLION = 1000000
 
-export default function MyOrders({ data, currencies, market, setMarket,theme }) {
-    const { data: tradePrice } = useTradePrice(market)
-    const currentPrice = tradePrice?.trade_price
+export default function MyOrders({
+    data,
+    currencies,
+    market,
+    setMarket,
+    theme,
+  unit,
+  krwusd,
+}) {
+    const [searchParam] = useSearchParams()
+    const { data: tradePrice } = useTradePrice(market, unit)
+    const currentPrice = Math.floor(tradePrice?.trade_price)
     const krw = currencies.find(item => item.currency === 'KRW') || {}
     const coin = currencies.find(item => item.currency === market)
-    const [searchParam] = useSearchParams()
-    if(!coin){
+    if (!coin) {
         return <div>새로고침 해보세요</div>
     }
-    const avgPrice = coin.avg_buy_price
+    const avgPrice = unit === 'KRW' ? coin.avg_buy_price : Math.floor(coin.avg_buy_price / (krwusd?.basePrice))
+
     const ySorted = sort((a, b) => a.y - b.y, data)
     const [minYValue, maxYValue] = [head(ySorted).y, last(ySorted).y]
     const profit = Math.floor(coin.balance * (currentPrice - avgPrice))
@@ -42,13 +51,12 @@ export default function MyOrders({ data, currencies, market, setMarket,theme }) 
     // console.log({height})
     const xScale = searchParam.get('xScale') || 'index'
 
-
     return (
         <div style={{ padding: 3, fontSize: 14 }}>
             <div
                 style={{
                     display: 'flex',
-                    flexDirection: 'column'
+                    flexDirection: 'column',
                 }}
             >
                 <Header1
@@ -58,12 +66,15 @@ export default function MyOrders({ data, currencies, market, setMarket,theme }) 
                     market={market}
                     setMarket={setMarket}
                     krw={krw}
+                    krwusd={krwusd}
+                    unit={unit}
                 />
                 <Header2
                     currentPrice={currentPrice}
                     avgPrice={avgPrice}
                     coin={coin}
                     profit={profit}
+                    unit={unit}
                 />
             </div>
 
@@ -83,8 +94,10 @@ export default function MyOrders({ data, currencies, market, setMarket,theme }) 
                             dataKey={xScale}
                             name="date"
                             angle={10}
-                            tickFormatter={value => xScale === 'index' ? value :
-                                moment(value).format('YY/MM/DD')
+                            tickFormatter={value =>
+                                xScale === 'index'
+                                    ? value
+                                    : moment(value).format('YY/MM/DD')
                             }
                             domain={['auto', 'auto']}
                         />
@@ -129,8 +142,10 @@ export default function MyOrders({ data, currencies, market, setMarket,theme }) 
                                         )
                                     )
                                 }
-                                if(type === 'date'){
-                                    return moment(payload.date).format('YY/MM/DD dd HH:mm')
+                                if (type === 'date') {
+                                    return moment(payload.date).format(
+                                        'YY/MM/DD dd HH:mm',
+                                    )
                                 }
                                 return toComma(value)
                             }}
@@ -151,7 +166,9 @@ export default function MyOrders({ data, currencies, market, setMarket,theme }) 
                                 label={
                                     '매수평균: ' + toComma(Math.floor(avgPrice))
                                 }
-                                stroke={theme === 'dark' ? '#8afd7c' : '#702963'}
+                                stroke={
+                                    theme === 'dark' ? '#8afd7c' : '#702963'
+                                }
                                 strokeDasharray="2 4"
                             />
                         )}
@@ -159,9 +176,10 @@ export default function MyOrders({ data, currencies, market, setMarket,theme }) 
                             <ReferenceLine
                                 y={currentPrice}
                                 label={'현재가: ' + toComma(currentPrice)}
-                                stroke={theme === 'dark' ? '#f5a7a7' : '#D22B2B'}
+                                stroke={
+                                    theme === 'dark' ? '#f5a7a7' : '#D22B2B'
+                                }
                                 strokeDasharray="2 4"
-
                             />
                         )}
                     </ScatterChart>

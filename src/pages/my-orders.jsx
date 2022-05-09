@@ -3,13 +3,17 @@ import moment from 'moment'
 import MyOrders from '../components/MyOrders'
 import useMyAccounts from '../SWRs/useMyAccounts'
 import useMyOrders from '../SWRs/useMyOrders'
-import {useSearchParams} from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
+import useKRWUSD from '../SWRs/useKRWUSD'
 
 export default ({theme}) => {
     const [searchParam] = useSearchParams()
+  const unit = searchParam.get('unit') || 'KRW'
+    const [market, setMarket] = useState('BTC')
+  const {data: krwusd} = useKRWUSD()
+
     const accessKey = searchParam.get('accessKey') || window.localStorage.getItem('accessKey') || ''
     const secretKey = searchParam.get('secretKey') ||window.localStorage.getItem('secretKey') || ''
-    const [market, setMarket] = useState('BTC')
 
     const { data: myAccounts } = useMyAccounts({
         accessKey,
@@ -21,7 +25,7 @@ export default ({theme}) => {
         myOrders?.map((item, idx) => ({
             index: idx + 1,
             date: moment(item.created_at).valueOf(),
-            y: Number(item.price),
+            y: Number(unit === 'KRW' ? item.price : (item.price/krwusd.basePrice)),
             z: Number(item.volume),
             side: item.side,
         })) || []
@@ -35,6 +39,8 @@ export default ({theme}) => {
             market={market}
             setMarket={setMarket}
             theme={theme}
+            unit={unit}
+            krwusd={krwusd}
         />
     ) : (
         <div style={{ margin: 10 }}>There is no data</div>

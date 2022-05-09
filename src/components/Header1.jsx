@@ -10,6 +10,8 @@ export default function Header1({
     currentPrice,
     avgPrice,
     krw,
+  krwusd,
+  unit,
 }) {
     const profitPercent =
         Math.floor(((currentPrice - avgPrice) / avgPrice) * 10000) / 100
@@ -90,10 +92,21 @@ export default function Header1({
             </div>
             <div>
                 <select
+                  value={unit}
+                  name="unit"
+                  onChange={e => {
+                      setSearchParam({ theme, unit: e.target.value, xScale })
+                  }}
+                  style={{ marginLeft: 2 }}
+                >
+                    <option value="KRW">krw</option>
+                    <option value="USDT">usdt</option>
+                </select>
+                <select
                     value={xScale}
                     name="xScale"
                     onChange={e => {
-                        setSearchParam({ theme, xScale: e.target.value })
+                        setSearchParam({ theme,unit, xScale: e.target.value })
                     }}
                     style={{ marginLeft: 2 }}
                 >
@@ -104,7 +117,7 @@ export default function Header1({
                     value={theme}
                     name="theme"
                     onChange={e => {
-                        setSearchParam({ theme: e.target.value, xScale })
+                        setSearchParam({ theme: e.target.value, unit,xScale })
                     }}
                     style={{ marginLeft: 2 }}
                 >
@@ -113,9 +126,10 @@ export default function Header1({
                 </select>
             </div>
             <div>
-                * {toComma(Math.floor(krw.balance))} -{' '}
-                {toComma(Math.floor(krw.locked))} ={' '}
-                {toComma(Math.floor(krw.balance - krw.locked))}
+                * {toComma(Math.floor(unit === 'KRW' ? krw.balance : (krw.balance / krwusd.basePrice)))} -{' '}
+                {toComma(Math.floor(unit === 'KRW' ? krw.locked : krw.locked / krwusd.basePrice))} ={' '}
+                {toComma(Math.floor(unit === 'KRW' ? (krw.balance - krw.locked): (krw.balance - krw.locked) / krwusd.basePrice))}
+                {unit === 'KRW' ? '₩' : '$'}
             </div>
 
             <div style={{ margin: '3px 0' }}>

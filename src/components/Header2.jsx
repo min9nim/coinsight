@@ -1,11 +1,11 @@
 import { toComma } from '@madup-inc/utils'
 
-export default function Header2({ coin, currentPrice, avgPrice, profit }) {
+export default function Header2({ coin, currentPrice, avgPrice, profit, unit }) {
   const texts = [
     `- 보유수량: ${coin.balance}`,
-    `- 평가금액: ${toComma(Math.floor(coin.balance * currentPrice))}원`,
-    `- 매수금액: ${toComma(Math.floor(coin.balance * avgPrice))}원`,
-    `- 평가손익: ${toComma(profit)}원`,
+    `- 평가금액: ${toComma(Math.floor(coin.balance * currentPrice))}${unit === 'KRW' ? '₩' : '$'}`,
+    `- 매수금액: ${toComma(Math.floor(coin.balance * avgPrice))}${unit === 'KRW' ? '₩' : '$'}`,
+    `- 평가손익: ${toComma(profit)}${unit === 'KRW' ? '₩' : '$'}`,
   ]
   return (
     <div
