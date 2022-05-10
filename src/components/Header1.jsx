@@ -26,7 +26,7 @@ export default function Header1({
 
     const [left, right] = String(profitPercent).split('.')
 
-    const cash = krw.locked + krw.balance
+    const cash = Number(krw.locked) + Number(krw.balance)
 
     return (
         <div
