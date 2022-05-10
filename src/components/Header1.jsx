@@ -10,8 +10,8 @@ export default function Header1({
     currentPrice,
     avgPrice,
     krw,
-  krwusd,
-  unit,
+    krwusd,
+    unit,
 }) {
     const profitPercent =
         Math.floor(((currentPrice - avgPrice) / avgPrice) * 10000) / 100
@@ -25,6 +25,8 @@ export default function Header1({
     const theme = searchParam.get('theme') || 'dark'
 
     const [left, right] = String(profitPercent).split('.')
+
+    const cash = krw.locked + krw.balance
 
     return (
         <div
@@ -63,7 +65,7 @@ export default function Header1({
                                     value={item.currency}
                                 >
                                     {/*{item.unit_currency + '-' + item.currency}*/}
-                                  {item.currency}
+                                    {item.currency}
                                 </option>
                             )
                         })}
@@ -93,12 +95,12 @@ export default function Header1({
             </div>
             <div>
                 <select
-                  value={unit}
-                  name="unit"
-                  onChange={e => {
-                      setSearchParam({ theme, unit: e.target.value, xScale })
-                  }}
-                  style={{ marginLeft: 2 }}
+                    value={unit}
+                    name="unit"
+                    onChange={e => {
+                        setSearchParam({ theme, unit: e.target.value, xScale })
+                    }}
+                    style={{ marginLeft: 2 }}
                 >
                     <option value="KRW">krw</option>
                     <option value="USDT">usdt</option>
@@ -107,7 +109,7 @@ export default function Header1({
                     value={xScale}
                     name="xScale"
                     onChange={e => {
-                        setSearchParam({ theme,unit, xScale: e.target.value })
+                        setSearchParam({ theme, unit, xScale: e.target.value })
                     }}
                     style={{ marginLeft: 2 }}
                 >
@@ -118,7 +120,7 @@ export default function Header1({
                     value={theme}
                     name="theme"
                     onChange={e => {
-                        setSearchParam({ theme: e.target.value, unit,xScale })
+                        setSearchParam({ theme: e.target.value, unit, xScale })
                     }}
                     style={{ marginLeft: 2 }}
                 >
@@ -127,9 +129,26 @@ export default function Header1({
                 </select>
             </div>
             <div>
-                * {toComma(Math.floor(unit === 'KRW' ? krw.balance : (krw.balance / krwusd.basePrice)))} -{' '}
-                {toComma(Math.floor(unit === 'KRW' ? krw.locked : krw.locked / krwusd.basePrice))} ={' '}
-                {toComma(Math.floor(unit === 'KRW' ? (krw.balance - krw.locked): (krw.balance - krw.locked) / krwusd.basePrice))}
+                *{' '}
+                {toComma(
+                    Math.floor(unit === 'KRW' ? cash : cash / krwusd.basePrice),
+                )}{' '}
+                -{' '}
+                {toComma(
+                    Math.floor(
+                        unit === 'KRW'
+                            ? krw.locked
+                            : krw.locked / krwusd.basePrice,
+                    ),
+                )}{' '}
+                ={' '}
+                {toComma(
+                    Math.floor(
+                        unit === 'KRW'
+                            ? krw.balance
+                            : krw.balance / krwusd.basePrice,
+                    ),
+                )}
                 {unit === 'KRW' ? '₩' : '$'}
             </div>
 
