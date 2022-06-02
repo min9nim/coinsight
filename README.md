@@ -12,7 +12,7 @@
 # 시작하기 전에 필요한 것
 coinsight 에 로그인하기 위해서는 업비트의 자산조회 & 주문조회 권한을 가진 키가 필요합니다. 먼저 아래 안내에 따라 자산조회용 키를 발급받으시기 바랍니다.
 
-https://upbit.com/service_center/open_api_guide
+https://upbit.com/mypage/open_api_management
 
 <br/>
 <br/>
