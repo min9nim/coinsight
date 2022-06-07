@@ -57,7 +57,7 @@ export default function Login() {
         <h1 style={{ display: 'inline', padding: '0 5px' }}>Coinsight</h1>
       </div>
       <fieldset>
-        <legend>업비트의 자산조회용 키를 입력해 주세요 . 🔑 </legend>
+        <legend>업비트의 자산&주문 조회용 키를 입력해 주세요 . 🔑 </legend>
         <div css={innerDiv}>
           accessKey:
           <input
