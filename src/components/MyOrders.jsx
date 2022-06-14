@@ -147,7 +147,7 @@ export default function MyOrders({
                                         'YY/MM/DD dd HH:mm',
                                     )
                                 }
-                                return toComma(value)
+                                return toComma(Math.round(value))
                             }}
                         />
                         <Scatter
