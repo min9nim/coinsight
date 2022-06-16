@@ -1,6 +1,6 @@
 import { toComma } from '@madup-inc/utils'
 
-export default function Header2({
+export default function Details({
     coin,
     currentPrice,
     avgPrice,

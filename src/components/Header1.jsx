@@ -4,7 +4,7 @@ import { useSearchParams } from 'react-router-dom'
 import { strMatched } from '@madup-inc/utils'
 import UAParser from 'ua-parser-js'
 import CaptureScreen from './CaptureScreen'
-import Header2 from './Header2'
+import Details from './Details'
 
 export default function Header1({
     market,
@@ -154,7 +154,7 @@ export default function Header1({
 
             <details>
                 <summary style={{ cursor: 'pointer', margin: '3px 0' }}>Details</summary>
-                <Header2
+                <Details
                     currentPrice={currentPrice}
                     avgPrice={avgPrice}
                     coin={coin}
