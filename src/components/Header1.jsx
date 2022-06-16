@@ -4,6 +4,7 @@ import { useSearchParams } from 'react-router-dom'
 import { strMatched, toComma } from '@madup-inc/utils'
 import domtoimage from 'dom-to-image'
 import { toast } from 'react-hot-toast'
+import { useLoading } from 'react-hook-loading'
 
 export default function Header1({
     market,
@@ -15,6 +16,7 @@ export default function Header1({
     krwusd,
     unit,
 }) {
+    const [loading, setLoading] = useLoading()
     const profitPercent =
         Math.floor(((currentPrice - avgPrice) / avgPrice) * 10000) / 100
 
@@ -163,8 +165,9 @@ export default function Header1({
                 </span>
             </div>
             <div
-                onClick={() => {
-                    domtoimage
+                onClick={async () => {
+                    setLoading(true)
+                    await domtoimage
                         .toPng(document.body, {
                             quality: 0.95,
                         })
@@ -172,7 +175,9 @@ export default function Header1({
                         .then(res => res.blob())
                         .then(blob => navigator.clipboard.write([
                             new window.ClipboardItem({ 'image/png': blob }),
-                        ])).then(() => toast.success('captured!'))
+                        ]))
+                    setLoading(false)
+                    toast.success('captured!')
                 }}
                 style={{
                     backgroundColor: "#222",
