@@ -135,7 +135,6 @@ export default function Header1({
 
             <div
                 style={{
-                    margin: '3px 0',
                     display: 'flex',
                     alignItems: 'center',
                     padding: '0 10px',
@@ -153,7 +152,7 @@ export default function Header1({
             </div>
 
             <details>
-                <summary style={{ cursor: 'pointer' }}>Details</summary>
+                <summary style={{ cursor: 'pointer', margin: '3px 0' }}>Details</summary>
                 <Header2
                     currentPrice={currentPrice}
                     avgPrice={avgPrice}

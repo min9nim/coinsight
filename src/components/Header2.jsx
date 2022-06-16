@@ -42,7 +42,6 @@ export default function Header2({
                 display: 'flex',
                 alignItems: 'center',
                 flexWrap: 'wrap',
-                marginTop: 5,
             }}
         >
             {texts.map((text, idx) => (
