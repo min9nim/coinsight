@@ -166,17 +166,13 @@ export default function Header1({
             </div>
             <div
                 onClick={async () => {
-                    setLoading(true)
                     await domtoimage
-                        .toPng(document.body, {
-                            quality: 0.95,
-                        })
+                        .toPng(document.getElementById("root"))
                         .then(fetch)
                         .then(res => res.blob())
                         .then(blob => navigator.clipboard.write([
                             new window.ClipboardItem({ 'image/png': blob }),
                         ]))
-                    setLoading(false)
                     toast.success('captured!')
                 }}
                 style={{
