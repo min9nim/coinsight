@@ -143,12 +143,13 @@ export default function Header1({
                 <a href="https://alternative.me/crypto/fear-and-greed-index/">
                     Fear&Greed: {fgIndex}
                 </a>
-                <span style={{ margin: '0 10px' }}>
+              {new UAParser().getDevice().type !== 'mobile' && (
+                <CaptureScreen />
+              )}
+                <span >
                     {moment().format('YY/MM/DD HH:mm')}
                 </span>
-                {new UAParser().getDevice().type !== 'mobile' && (
-                    <CaptureScreen />
-                )}
+
             </div>
 
             <details>
