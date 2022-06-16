@@ -4,6 +4,7 @@ import { useSearchParams } from 'react-router-dom'
 import { strMatched } from '@madup-inc/utils'
 import UAParser from 'ua-parser-js'
 import CaptureScreen from './CaptureScreen'
+import Header2 from './Header2'
 
 export default function Header1({
     market,
@@ -12,6 +13,10 @@ export default function Header1({
     currentPrice,
     avgPrice,
     unit,
+                                    krw,
+                                    krwusd,
+  coin,
+                                    profit,
 }) {
     const profitPercent =
         Math.floor(((currentPrice - avgPrice) / avgPrice) * 10000) / 100
@@ -34,13 +39,14 @@ export default function Header1({
                 display: 'flex',
                 flexWrap: 'wrap',
                 alignItems: 'center',
-                justifyContent: 'space-between',
+                justifyContent: 'start',
             }}
         >
             <div
                 style={{
                     display: 'flex',
                     alignItems: 'center',
+                    padding: '0 10px',
                 }}
             >
                 <select
@@ -93,7 +99,7 @@ export default function Header1({
                     {right ? left + '.' + right.padEnd(2, '0') : left}%
                 </span>
             </div>
-            <div>
+            <div style={{padding: '0 10px',}}>
                 <select
                     value={unit}
                     name="unit"
@@ -116,21 +122,21 @@ export default function Header1({
                     <option value="index">index</option>
                     <option value="date">date</option>
                 </select>
-                <select
-                    value={theme}
-                    name="theme"
-                    onChange={e => {
-                        setSearchParam({ theme: e.target.value, unit, xScale })
-                    }}
-                    style={{ marginLeft: 2 }}
-                >
-                    <option value="dark">dark</option>
-                    <option value="light">light</option>
-                </select>
+                {/*<select*/}
+                {/*    value={theme}*/}
+                {/*    name="theme"*/}
+                {/*    onChange={e => {*/}
+                {/*        setSearchParam({ theme: e.target.value, unit, xScale })*/}
+                {/*    }}*/}
+                {/*    style={{ marginLeft: 2 }}*/}
+                {/*>*/}
+                {/*    <option value="dark">dark</option>*/}
+                {/*    <option value="light">light</option>*/}
+                {/*</select>*/}
             </div>
 
 
-            <div style={{ margin: '3px 0', display: 'flex', alignItems: 'center' }}>
+            <div style={{ margin: '3px 0', display: 'flex', alignItems: 'center', padding: '0 10px', }}>
                 <a href="https://alternative.me/crypto/fear-and-greed-index/">
                     Fear&Greed: {fgIndex}
                 </a>
@@ -141,6 +147,19 @@ export default function Header1({
                   new UAParser().getDevice().type !== 'mobile' && <CaptureScreen/>
                 }
             </div>
+
+            <details>
+                <summary style={{cursor:'pointer'}}>Details</summary>
+                <Header2
+                  currentPrice={currentPrice}
+                  avgPrice={avgPrice}
+                  coin={coin}
+                  profit={profit}
+                  unit={unit}
+                  krw={krw}
+                  krwusd={krwusd}
+                />
+            </details>
 
         </div>
     )

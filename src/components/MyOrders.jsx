@@ -66,15 +66,10 @@ export default function MyOrders({
                     market={market}
                     setMarket={setMarket}
                     unit={unit}
-                />
-                <Header2
-                    currentPrice={currentPrice}
-                    avgPrice={avgPrice}
-                    coin={coin}
-                    profit={profit}
-                    unit={unit}
                     krw={krw}
                     krwusd={krwusd}
+                    coin={coin}
+                    profit={profit}
                 />
             </div>
 
