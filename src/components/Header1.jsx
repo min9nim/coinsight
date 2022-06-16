@@ -1,7 +1,7 @@
 import moment from 'moment'
 import useFearGreedIndex from '../SWRs/useFearGreedIndex'
 import { useSearchParams } from 'react-router-dom'
-import { strMatched, toComma } from '@madup-inc/utils'
+import { strMatched } from '@madup-inc/utils'
 import UAParser from 'ua-parser-js'
 import CaptureScreen from './CaptureScreen'
 
@@ -11,8 +11,6 @@ export default function Header1({
     currencies,
     currentPrice,
     avgPrice,
-    krw,
-    krwusd,
     unit,
 }) {
     const profitPercent =
@@ -28,7 +26,7 @@ export default function Header1({
 
     const [left, right] = String(profitPercent).split('.')
 
-    const cash = Number(krw.locked) + Number(krw.balance)
+
 
     return (
         <div
@@ -130,29 +128,7 @@ export default function Header1({
                     <option value="light">light</option>
                 </select>
             </div>
-            <div>
-                *{' '}
-                {toComma(
-                    Math.floor(unit === 'KRW' ? cash : cash / krwusd.basePrice),
-                )}{' '}
-                -{' '}
-                {toComma(
-                    Math.floor(
-                        unit === 'KRW'
-                            ? krw.locked
-                            : krw.locked / krwusd.basePrice,
-                    ),
-                )}{' '}
-                ={' '}
-                {toComma(
-                    Math.floor(
-                        unit === 'KRW'
-                            ? krw.balance
-                            : krw.balance / krwusd.basePrice,
-                    ),
-                )}
-                {unit === 'KRW' ? '₩' : '$'}
-            </div>
+
 
             <div style={{ margin: '3px 0', display: 'flex', alignItems: 'center' }}>
                 <a href="https://alternative.me/crypto/fear-and-greed-index/">
