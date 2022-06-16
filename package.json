@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^12.1.10",
     "animejs": "^3.2.1",
     "axios": "^0.24.0",
+    "dom-to-image": "^2.6.0",
     "moment": "^2.29.1",
     "ramda": "^0.27.1",
     "react": "^17.0.2",

@@ -2,6 +2,8 @@ import moment from 'moment'
 import useFearGreedIndex from '../SWRs/useFearGreedIndex'
 import { useSearchParams } from 'react-router-dom'
 import { strMatched, toComma } from '@madup-inc/utils'
+import domtoimage from 'dom-to-image'
+import { toast } from 'react-hot-toast'
 
 export default function Header1({
     market,
@@ -159,6 +161,32 @@ export default function Header1({
                 <span style={{ marginLeft: 10 }}>
                     {moment().format('YY/MM/DD HH:mm')}
                 </span>
+            </div>
+            <div
+                onClick={() => {
+                    domtoimage
+                        .toPng(document.body, {
+                            quality: 0.95,
+                        })
+                        .then(fetch)
+                        .then(res => res.blob())
+                        .then(blob => navigator.clipboard.write([
+                            new window.ClipboardItem({ 'image/png': blob }),
+                        ])).then(() => toast.success('captured!'))
+                }}
+                style={{
+                    backgroundColor: "#222",
+                    cursor: 'pointer',
+                    padding: '1px',
+                    borderRadius: '100%',
+                    display:'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}
+            >
+                <img
+                  src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjZmZmZmZmIiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMuMiIvPgogICAgPHBhdGggZD0iTTkgMkw3LjE3IDRINGMtMS4xIDAtMiAuOS0yIDJ2MTJjMCAxLjEuOSAyIDIgMmgxNmMxLjEgMCAyLS45IDItMlY2YzAtMS4xLS45LTItMi0yaC0zLjE3TDE1IDJIOXptMyAxNWMtMi43NiAwLTUtMi4yNC01LTVzMi4yNC01IDUtNSA1IDIuMjQgNSA1LTIuMjQgNS01IDV6Ii8+CiAgICA8cGF0aCBkPSJNMCAwaDI0djI0SDB6IiBmaWxsPSJub25lIi8+Cjwvc3ZnPgo="
+                  alt="Try html2canvas" className="css-1bgbwga"/>
             </div>
         </div>
     )
