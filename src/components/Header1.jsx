@@ -2,6 +2,8 @@ import moment from 'moment'
 import useFearGreedIndex from '../SWRs/useFearGreedIndex'
 import { useSearchParams } from 'react-router-dom'
 import { strMatched, toComma } from '@madup-inc/utils'
+import UAParser from 'ua-parser-js'
+import CaptureScreen from './CaptureScreen'
 
 export default function Header1({
     market,
@@ -152,13 +154,16 @@ export default function Header1({
                 {unit === 'KRW' ? '₩' : '$'}
             </div>
 
-            <div style={{ margin: '3px 0' }}>
+            <div style={{ margin: '3px 0', display: 'flex', alignItems: 'center' }}>
                 <a href="https://alternative.me/crypto/fear-and-greed-index/">
                     Fear&Greed: {fgIndex}
                 </a>
-                <span style={{ marginLeft: 10 }}>
+                <span style={{ margin: '0 10px' }}>
                     {moment().format('YY/MM/DD HH:mm')}
                 </span>
+                {
+                  new UAParser().getDevice().type !== 'mobile' && <CaptureScreen/>
+                }
             </div>
 
         </div>

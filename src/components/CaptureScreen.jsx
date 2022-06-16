@@ -3,7 +3,7 @@ import { toast } from 'react-hot-toast'
 
 export default function CaptureScreen() {
     return (
-        <div
+        <span
             onClick={async () => {
                 const dataUri = await domtoimage.toPng(
                     document.getElementById('root'),
@@ -30,6 +30,6 @@ export default function CaptureScreen() {
                 alt="Try html2canvas"
                 className="css-1bgbwga"
             />
-        </div>
+        </span>
     )
 }
