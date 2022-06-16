@@ -9,7 +9,7 @@ export default function CaptureScreen() {
                     document.getElementById('root'),
                 )
                 const blob = await fetch(dataUri).then(res => res.blob())
-                navigator.clipboard.write([
+                await navigator.clipboard.write([
                     new window.ClipboardItem({ 'image/png': blob }),
                 ])
 
