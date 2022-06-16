@@ -6,7 +6,7 @@ import UAParser from 'ua-parser-js'
 import CaptureScreen from './CaptureScreen'
 import Details from './Details'
 
-export default function Header1({
+export default function Header({
     market,
     setMarket,
     currencies,

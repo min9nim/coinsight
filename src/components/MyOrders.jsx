@@ -13,7 +13,7 @@ import moment from 'moment'
 import { oneOf, toComma } from '@madup-inc/utils'
 import useTradePrice from '../SWRs/useTradePrice'
 import { head, last, propEq, sort } from 'ramda'
-import Header1 from './Header1'
+import Header from './Header'
 import Details from './Details'
 import { useSearchParams } from 'react-router-dom'
 
@@ -59,7 +59,7 @@ export default function MyOrders({
                     flexDirection: 'column',
                 }}
             >
-                <Header1
+                <Header
                     avgPrice={avgPrice}
                     currencies={currencies}
                     currentPrice={currentPrice}
