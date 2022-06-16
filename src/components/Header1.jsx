@@ -13,10 +13,10 @@ export default function Header1({
     currentPrice,
     avgPrice,
     unit,
-                                    krw,
-                                    krwusd,
-  coin,
-                                    profit,
+    krw,
+    krwusd,
+    coin,
+    profit,
 }) {
     const profitPercent =
         Math.floor(((currentPrice - avgPrice) / avgPrice) * 10000) / 100
@@ -30,8 +30,6 @@ export default function Header1({
     const theme = searchParam.get('theme') || 'dark'
 
     const [left, right] = String(profitPercent).split('.')
-
-
 
     return (
         <div
@@ -99,7 +97,7 @@ export default function Header1({
                     {right ? left + '.' + right.padEnd(2, '0') : left}%
                 </span>
             </div>
-            <div style={{padding: '0 10px',}}>
+            <div style={{ padding: '0 10px' }}>
                 <select
                     value={unit}
                     name="unit"
@@ -135,32 +133,37 @@ export default function Header1({
                 {/*</select>*/}
             </div>
 
-
-            <div style={{ margin: '3px 0', display: 'flex', alignItems: 'center', padding: '0 10px', }}>
+            <div
+                style={{
+                    margin: '3px 0',
+                    display: 'flex',
+                    alignItems: 'center',
+                    padding: '0 10px',
+                }}
+            >
                 <a href="https://alternative.me/crypto/fear-and-greed-index/">
                     Fear&Greed: {fgIndex}
                 </a>
                 <span style={{ margin: '0 10px' }}>
                     {moment().format('YY/MM/DD HH:mm')}
                 </span>
-                {
-                  new UAParser().getDevice().type !== 'mobile' && <CaptureScreen/>
-                }
+                {new UAParser().getDevice().type !== 'mobile' && (
+                    <CaptureScreen />
+                )}
             </div>
 
             <details>
-                <summary style={{cursor:'pointer'}}>Details</summary>
+                <summary style={{ cursor: 'pointer' }}>Details</summary>
                 <Header2
-                  currentPrice={currentPrice}
-                  avgPrice={avgPrice}
-                  coin={coin}
-                  profit={profit}
-                  unit={unit}
-                  krw={krw}
-                  krwusd={krwusd}
+                    currentPrice={currentPrice}
+                    avgPrice={avgPrice}
+                    coin={coin}
+                    profit={profit}
+                    unit={unit}
+                    krw={krw}
+                    krwusd={krwusd}
                 />
             </details>
-
         </div>
     )
 }
