@@ -106,8 +106,8 @@ export default function Header({
                     }}
                     style={{ marginLeft: 2 }}
                 >
-                    <option value="KRW">krw</option>
                     <option value="USDT">usdt</option>
+                    <option value="KRW">krw</option>
                 </select>
                 <select
                     value={xScale}
