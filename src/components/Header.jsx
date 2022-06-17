@@ -20,15 +20,11 @@ export default function Header({
 }) {
     const profitPercent =
         Math.floor(((currentPrice - avgPrice) / avgPrice) * 10000) / 100
-
     const { data } = useFearGreedIndex()
     const fgIndex = data?.data.datasets[0].data[0]
-
     const [searchParam, setSearchParam] = useSearchParams()
-
     const xScale = searchParam.get('xScale') || 'index'
     const theme = searchParam.get('theme') || 'dark'
-
     const [left, right] = String(profitPercent).split('.')
 
     return (
