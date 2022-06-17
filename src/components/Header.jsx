@@ -133,27 +133,16 @@ export default function Header({
                 {/*</select>*/}
             </div>
 
-            <div
-                style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    padding: '0 10px',
-                }}
-            >
-                <a href="https://alternative.me/crypto/fear-and-greed-index/">
-                    Fear&Greed: {fgIndex}
-                </a>
-              {new UAParser().getDevice().type !== 'mobile' && (
-                <CaptureScreen />
-              )}
-                <span >
-                    {moment().format('YY/MM/DD HH:mm')}
-                </span>
-
-            </div>
+            <a href="https://alternative.me/crypto/fear-and-greed-index/" style={{padding:'2px 10px'}}>
+                Fear&Greed: {fgIndex}
+            </a>
+            {new UAParser().getDevice().type !== 'mobile' && <CaptureScreen />}
+            <span style={{padding:'2px 10px'}}>{moment().format('YY/MM/DD HH:mm')}</span>
 
             <details>
-                <summary style={{ cursor: 'pointer', margin: '3px 0' }}>Details</summary>
+                <summary style={{ cursor: 'pointer', margin: '3px 0' }}>
+                    Details
+                </summary>
                 <Details
                     currentPrice={currentPrice}
                     avgPrice={avgPrice}
