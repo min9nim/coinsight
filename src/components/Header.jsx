@@ -133,7 +133,7 @@ export default function Header({
                 {/*</select>*/}
             </div>
 
-            <a href="https://alternative.me/crypto/fear-and-greed-index/" style={{margin:'5px'}}>
+            <a href="https://alternative.me/crypto/fear-and-greed-index/" style={{margin:'5px', fontStyle: 'italic'}}>
                 Fear&Greed: {fgIndex}
             </a>
             {new UAParser().getDevice().type !== 'mobile' && <CaptureScreen />}
