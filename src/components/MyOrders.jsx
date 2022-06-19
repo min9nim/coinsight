@@ -14,7 +14,6 @@ import { oneOf, toComma } from '@madup-inc/utils'
 import useTradePrice from '../SWRs/useTradePrice'
 import { head, last, propEq, sort } from 'ramda'
 import Header from './Header'
-import Details from './Details'
 import { useSearchParams } from 'react-router-dom'
 
 const ONE_MILLION = 1000000
