@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import MyTrades from './pages/my-orders'
+import MyOrders from './pages/my-orders'
 import { DefaultLoading, LoadingProvider } from 'react-hook-loading'
 import ErrorBoundary from './ErrorBoundary'
 import { Toaster } from 'react-hot-toast'
@@ -15,7 +15,7 @@ export default function App() {
                 <div className={theme}>
                     <Suspense fallback={<DefaultLoading />}>
                         {window.location.pathname === '/my-orders' ? (
-                            <MyTrades theme={theme}/>
+                            <MyOrders theme={theme}/>
                         ) : (
                             <Login />
                         )}
