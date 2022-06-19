@@ -129,14 +129,19 @@ export default function Header({
                 {/*</select>*/}
             </div>
 
-            <a href="https://alternative.me/crypto/fear-and-greed-index/" style={{margin:'5px', fontStyle: 'italic'}}>
+            <a
+                href="https://alternative.me/crypto/fear-and-greed-index/"
+                style={{ margin: '5px', fontStyle: 'italic' }}
+            >
                 Fear&Greed: {fgIndex}
             </a>
             {new UAParser().getDevice().type !== 'mobile' && <CaptureScreen />}
-            <span style={{margin:'5px'}}>{moment().format('YY/MM/DD HH:mm')}</span>
+            <span style={{ margin: '5px' }}>
+                {moment().format('YY/MM/DD HH:mm')}
+            </span>
 
             <details>
-                <summary style={{ cursor: 'pointer', margin: '3px 0' }}>
+                <summary style={{ cursor: 'pointer', margin: '5px' }}>
                     Details
                 </summary>
                 <Details
