@@ -2,18 +2,18 @@ import domtoimage from 'dom-to-image'
 import { toast } from 'react-hot-toast'
 
 export default function CaptureScreen() {
+    const capture = async () => {
+        const dataUri = await domtoimage.toPng(document.getElementById('root'))
+        const blob = await fetch(dataUri).then(res => res.blob())
+        await navigator.clipboard.write([
+            new window.ClipboardItem({ 'image/png': blob }),
+        ])
+        toast.success('captured!')
+    }
+
     return (
         <span
-            onClick={async () => {
-                const dataUri = await domtoimage.toPng(
-                    document.getElementById('root'),
-                )
-                const blob = await fetch(dataUri).then(res => res.blob())
-                await navigator.clipboard.write([
-                    new window.ClipboardItem({ 'image/png': blob }),
-                ])
-                toast.success('captured!')
-            }}
+            onClick={capture}
             style={{
                 backgroundColor: '#222',
                 cursor: 'pointer',
