@@ -8,7 +8,7 @@ import useKRWUSD from '../SWRs/useKRWUSD'
 
 export default ({theme}) => {
     const [searchParam] = useSearchParams()
-  const unit = searchParam.get('unit') || 'KRW'
+  const unit = searchParam.get('unit') || 'USDT'
     const [market, setMarket] = useState('BTC')
   const {data: krwusd} = useKRWUSD()
 
