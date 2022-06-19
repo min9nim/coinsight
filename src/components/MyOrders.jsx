@@ -1,13 +1,13 @@
 import {
-  CartesianGrid,
-  ReferenceLine,
-  ResponsiveContainer,
-  Scatter,
-  ScatterChart,
-  Tooltip,
-  XAxis,
-  YAxis,
-  ZAxis,
+    CartesianGrid,
+    ReferenceLine,
+    ResponsiveContainer,
+    Scatter,
+    ScatterChart,
+    Tooltip,
+    XAxis,
+    YAxis,
+    ZAxis,
 } from 'recharts'
 import moment from 'moment'
 import { oneOf, toComma } from '@madup-inc/utils'
@@ -24,8 +24,8 @@ export default function MyOrders({
     market,
     setMarket,
     theme,
-  unit,
-  krwusd,
+    unit,
+    krwusd,
 }) {
     const [searchParam] = useSearchParams()
     const { data: tradePrice } = useTradePrice(market, unit)
@@ -35,7 +35,10 @@ export default function MyOrders({
     if (!coin) {
         return <div>새로고침 해보세요</div>
     }
-    const avgPrice = unit === 'KRW' ? coin.avg_buy_price : Math.floor(coin.avg_buy_price / (krwusd?.basePrice))
+    const avgPrice =
+        unit === 'KRW'
+            ? coin.avg_buy_price
+            : Math.floor(coin.avg_buy_price / krwusd?.basePrice)
 
     const ySorted = sort((a, b) => a.y - b.y, data)
     const [minYValue, maxYValue] = [head(ySorted).y, last(ySorted).y]
