@@ -6,14 +6,20 @@ import useMyOrders from '../SWRs/useMyOrders'
 import { useSearchParams } from 'react-router-dom'
 import useKRWUSD from '../SWRs/useKRWUSD'
 
-export default ({theme}) => {
+export default ({ theme }) => {
     const [searchParam] = useSearchParams()
-  const unit = searchParam.get('unit') || 'USDT'
+    const unit = searchParam.get('unit') || 'USDT'
     const [market, setMarket] = useState('BTC')
-  const {data: krwusd} = useKRWUSD()
+    const { data: krwusd } = useKRWUSD()
 
-    const accessKey = searchParam.get('accessKey') || window.localStorage.getItem('accessKey') || ''
-    const secretKey = searchParam.get('secretKey') ||window.localStorage.getItem('secretKey') || ''
+    const accessKey =
+        searchParam.get('accessKey') ||
+        window.localStorage.getItem('accessKey') ||
+        ''
+    const secretKey =
+        searchParam.get('secretKey') ||
+        window.localStorage.getItem('secretKey') ||
+        ''
 
     const { data: myAccounts } = useMyAccounts({
         accessKey,
@@ -25,7 +31,9 @@ export default ({theme}) => {
         myOrders?.map((item, idx) => ({
             index: idx + 1,
             date: moment(item.created_at).valueOf(),
-            y: Number(unit === 'KRW' ? item.price : (item.price/krwusd.basePrice)),
+            y: Number(
+                unit === 'KRW' ? item.price : item.price / krwusd.basePrice,
+            ),
             z: Number(item.volume),
             side: item.side,
         })) || []
