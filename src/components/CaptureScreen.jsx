@@ -12,7 +12,6 @@ export default function CaptureScreen() {
                 await navigator.clipboard.write([
                     new window.ClipboardItem({ 'image/png': blob }),
                 ])
-
                 toast.success('captured!')
             }}
             style={{
@@ -23,7 +22,7 @@ export default function CaptureScreen() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                margin: '0 10px'
+                margin: '0 10px',
             }}
         >
             <img
