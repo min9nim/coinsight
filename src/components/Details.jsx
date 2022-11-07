@@ -15,18 +15,19 @@ export default function Details({
     const texts = [
         `- 보유수량: ${coin.balance}`,
         `- 평가금액: ${
-            toComma(Math.floor(coin.balance * currentPrice)) + unitStr
+            unitStr + toComma(Math.floor(coin.balance * currentPrice))
         }`,
-        `- 매수금액: ${toComma(Math.floor(coin.balance * avgPrice)) + unitStr}`,
-        `- 평가손익: ${toComma(profit)}${unit === 'KRW' ? '₩' : '$'}`,
+        `- 매수금액: ${unitStr + toComma(Math.floor(coin.balance * avgPrice))}`,
+        `- 평가손익: ${unitStr + toComma(profit)}`,
         `- 현금잔액: ${
+            unitStr +
             toComma(
                 Math.floor(
                     unit === 'KRW'
                         ? krw.balance
                         : krw.balance / krwusd.basePrice,
                 ),
-            ) + unitStr
+            )
         } (${toComma(
             Math.floor(unit === 'KRW' ? cash : cash / krwusd.basePrice),
         )} - ${toComma(
