@@ -1,7 +1,7 @@
 # Coinsight
 코인사이트는 비트코인의 위대한 가치를 발견하고 적립식 분할 매수를 통해 장기적으로 비트코인을 모으기로 작정하신 분들에게 나의 지난 매수내역을 시각화하여 보여주기 위한 목적으로 제작되었습니다.
 - 아직 업비트 거래소만 지원됩니다.
-- 👉🏻  https://coinsight.vercel.app
+- 👉🏻  http://maduser.byus.net
 
 ![image](https://user-images.githubusercontent.com/6068828/154771183-e48814b3-dbc4-49f8-80e2-7a8d49a91328.png)
 
@@ -10,7 +10,9 @@
 <br/>
 
 # 시작하기 전에 필요한 것
-coinsight 에 로그인하기 위해서는 업비트의 자산조회 & 주문조회 권한을 가진 키가 필요합니다. 먼저 아래 안내에 따라 업비트 API Key 를 발급받으시기 바랍니다.
+
+coinsight 에 로그인하기 위해서는 업비트의 자산조회 & 주문조회 권한을 가진 키가 필요합니다(허용 IP는 `61.111.254.203`). 먼저 아래 안내에 따라 업비트 API Key 를 발급받으시기
+바랍니다.
 
 https://upbit.com/mypage/open_api_management
 
