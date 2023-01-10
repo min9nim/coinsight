@@ -1,7 +1,7 @@
 # Coinsight
 코인사이트는 비트코인의 위대한 가치를 발견하고 적립식 분할 매수를 통해 장기적으로 비트코인을 모으기로 작정하신 분들에게 나의 지난 매수내역을 시각화하여 보여주기 위한 목적으로 제작되었습니다.
 - 아직 업비트 거래소만 지원됩니다.
-- 👉🏻  http://maduser.byus.net
+- 👉🏻 https://coinsight.vercel.app
 
 ![image](https://user-images.githubusercontent.com/6068828/154771183-e48814b3-dbc4-49f8-80e2-7a8d49a91328.png)
 
