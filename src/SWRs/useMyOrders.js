@@ -1,8 +1,8 @@
-import useSWR from 'swr'
 import axios from 'axios'
+import { identity } from 'ramda'
 import { useLoading } from 'react-hook-loading'
 import { toast } from 'react-hot-toast'
-import { always, identity } from 'ramda'
+import useSWR from 'swr'
 
 export default function useMyOrders({ market, accessKey, secretKey }) {
     const [, setLoading] = useLoading()
@@ -34,7 +34,6 @@ export default function useMyOrders({ market, accessKey, secretKey }) {
                     req({ accessKey, secretKey, market, page: 5 }),
                     req({ accessKey, secretKey, market, page: 6 }),
                     req({ accessKey, secretKey, market, page: 7 }),
-                    req({ accessKey, secretKey, market, page: 8 }),
                 ])
                 return result.flatMap(identity)
             } finally {
