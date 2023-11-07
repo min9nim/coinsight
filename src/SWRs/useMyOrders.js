@@ -1,11 +1,9 @@
 import axios from 'axios'
 import { identity } from 'ramda'
-import { useLoading } from 'react-hook-loading'
 import { toast } from 'react-hot-toast'
 import useSWR from 'swr'
 
 export default function useMyOrders({ market, accessKey, secretKey }) {
-    const [, setLoading] = useLoading()
     const { data } = useSWR(
         !market ||
             accessKey.length !== 40 ||
@@ -14,31 +12,16 @@ export default function useMyOrders({ market, accessKey, secretKey }) {
             ? null
             : [market, accessKey, secretKey],
         async (market, accessKey, secretKey) => {
-            setLoading(true)
-            try {
-                // const result = []
-                // for (let page = 1, res; ; page++) {
-                //   res = await req({ accessKey, secretKey, market, page })
-                //   result.push(...res)
-                //   if(res.length < 100){
-                //     break
-                //   }
-                // }
-                // return result
-
-                const result = await Promise.all([
-                    req({ accessKey, secretKey, market, page: 1 }),
-                    req({ accessKey, secretKey, market, page: 2 }),
-                    req({ accessKey, secretKey, market, page: 3 }),
-                    req({ accessKey, secretKey, market, page: 4 }),
-                    req({ accessKey, secretKey, market, page: 5 }),
-                    req({ accessKey, secretKey, market, page: 6 }),
-                    req({ accessKey, secretKey, market, page: 7 }),
-                ])
-                return result.flatMap(identity)
-            } finally {
-                setLoading(false)
-            }
+          const result = await Promise.all([
+            req({ accessKey, secretKey, market, page: 1 }),
+            req({ accessKey, secretKey, market, page: 2 }),
+            req({ accessKey, secretKey, market, page: 3 }),
+            req({ accessKey, secretKey, market, page: 4 }),
+            req({ accessKey, secretKey, market, page: 5 }),
+            req({ accessKey, secretKey, market, page: 6 }),
+            req({ accessKey, secretKey, market, page: 7 }),
+          ])
+          return result.flatMap(identity)
         },
         {
             onError(err, key, config) {
