@@ -38,6 +38,9 @@ export default ({ theme }) => {
             side: item.side,
         })) || []
 
+    if (!myAccounts) {
+        return <div>Loading..</div>
+    }
     const currencies = myAccounts || []
 
     return data.length > 0 ? (
