@@ -20,6 +20,10 @@ export default function useMyOrders({ market, accessKey, secretKey }) {
             req({ accessKey, secretKey, market, page: 5 }),
             req({ accessKey, secretKey, market, page: 6 }),
             req({ accessKey, secretKey, market, page: 7 }),
+            req({ accessKey, secretKey, market, page: 8 }),
+            req({ accessKey, secretKey, market, page: 9 }),
+            req({ accessKey, secretKey, market, page: 10 }),
+            req({ accessKey, secretKey, market, page: 11 }),
           ])
           return result.flatMap(identity)
         },
